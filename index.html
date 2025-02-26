@@ -1,0 +1,4388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Game with Bomb Animation</title>
+  <style>
+  body{
+    background-color: #222;
+  }
+    button {
+      font-size: 40px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    #canvas {
+      border: 2px solid yellow;
+      background-color: black;
+      
+    }
+    #canvas2 {
+      border-top: 4px solid green;
+      
+    }
+    .control{
+      
+      margin-left:30px;
+    }
+    #score{
+      font-family: Monospace;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(to right,red,gold);
+      color:white;
+      text-shadow:2px 2px 2px black;
+      border-radius:20px 0 20px 0;
+      border-bottom:2px solid black;
+      width:40%;
+      padding:5px;
+      margin-bottom:5px;
+      
+    }
+    #gold{
+      text-align: center;
+      position: absolute;
+      left:185px;
+      top:169px;
+      font-family: Monospace;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(to right,black,orange);
+      color:white;
+      text-shadow:2px 2px 2px black;
+      border-radius:20px 0 20px 0;
+      border-bottom:2px solid black;
+      padding:5px;
+      margin-bottom:5px;
+    }
+    #lv{
+      text-align: center;
+      position: absolute;
+      left:165px;
+      top:132px;
+      font-family: Monospace;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(to right,aqua,tomato);
+      color:white;
+      text-shadow:2px 2px 2px black;
+      border-radius:20px 0 20px 0;
+      border-bottom:2px solid black;
+      width:38%;
+      padding:5px;
+      margin-bottom:5px;
+    }
+    #ucapan{
+      text-align: center;
+      position: absolute;
+      left:25px;
+      top:320px;
+      transform: rotate(-30deg);
+      font-family: Monospace;
+      font-size: 45px;
+      font-weight: bold;
+      background: linear-gradient(to right,red,tomato);
+      color:white;
+      text-shadow:2px 2px 2px black;
+      border-radius:20px 0 20px 0;
+      border-bottom:2px solid black;
+      width:75%;
+      padding:5px;
+      margin-bottom:5px;
+    }
+    #kembali{
+      z-index: 9999;
+      text-align: center;
+      position: absolute;
+       left:2px;
+      top:50px;
+      
+      font-family: Monospace;
+      font-size: 21px;
+      font-weight: bold;
+      background-color: yellow;
+      color:black;
+      text-shadow:2px 2px 2px white;
+      border-radius:15px;
+      border-bottom:2px solid black;
+      padding:5px 10px;
+      margin-bottom:2px;
+      border:2px solid white;
+    }
+    #time{
+      font-family: Monospace;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(to right,lime,gray);
+      color:white;
+      text-shadow:2px 2px 2px black;
+      border-radius:20px 0 20px 0;
+      border-bottom:2px solid black;
+      width:45%;
+      padding:5px;
+      margin-bottom:5px;
+      
+    }
+    #info{
+      background-color: black;
+      border:1px solid yellow;
+      padding:5px;
+      width:293px;
+      margin-bottom: 5px;
+      font-weight:bold;
+    }
+    #isiInfo{
+      color: white;
+      text-align: center;
+      font-family: Monospace;
+      margin-bottom: 5px;
+    }
+    #isiInfo2{
+      border-radius:20px ;
+      background-color: green;
+      padding:5px;
+      color: white;
+      text-align: center;
+      font-family: Monospace;
+      
+    }
+    #menuLv{
+      background-color: black;
+      padding:10px;
+      font-size: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap:10px
+    }
+    #lock,#lv1,#lv2,#lv3,#lv4,#lv5,#lv6,#lv7,#lv8,#lv9,#lv10{
+      color:white;
+      background-color: gray;
+      padding:5px 10px;
+      border-radius:5px;
+      font-family: Monospace;
+      font-weight:bold;
+    }
+    #menuEnjoy{
+      background-color: black;
+      padding:10px;
+      font-size: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap:10px
+    }
+    #modeEnjoy,#papanNama,#backMenuEnjoy,#destroy,#mario{
+      color:white;
+      background-color: green;
+      padding:5px 10px;
+      border-radius:5px;
+      font-family: Monospace;
+      font-weight:bold;
+    }
+    #menuUtama{
+      background:linear-gradient(to right,aqua,lime);
+      font-family: Monospace;
+      font-size: 21px;
+      font-weight: bolder;
+      text-align: center;
+      height:300px;
+      margin-top:150px;
+      padding:25px;
+      border-radius:190px;
+    }
+    #menuUtama2{
+      background-color: yellow;
+      width:55%;
+      margin-left:85px;
+      transform: rotate(8deg);
+      font-family: Monospace;
+      font-size: 21px;
+      font-weight: bolder;
+      text-align: center;
+      height:300px;
+      width:200px;
+      border:2px solid black;
+      border-radius:290px;
+    }
+    #rank,#enjoy,#shop,#about,#skinM{
+      background-color: black;
+      color:white;
+      margin: 15px;
+      padding:5px;
+      font-size: 25px;
+      border-radius:10px;
+      border:2px solid #eee;
+    }
+    #masjid{
+      border-radius:190px;
+      position: absolute;
+      font-size: 150px;
+      top:325px;
+      left:16px;
+      text-shadow: -10px -10px 5px black
+    }
+    #bulan{
+      position: absolute;
+      font-size: 65px;
+      top:160px;
+      transform: rotate(145deg);
+      left:16px;
+      text-shadow: -3px -3px 3px yellow
+    }
+    #pesawat{
+      position: absolute;
+      font-size: 65px;
+      top:100px;
+      transform: rotate(35deg);
+      left:139px;
+      text-shadow: -3px -3px 3px aqua
+    }
+    #halo{
+      position: absolute;
+      font-size: 24px;
+      top:245px;
+      left:5px;
+      font-weight: bolder;
+      transform: rotate(-10deg);
+      font-family: Monospace;
+      text-shadow: -1px -1px 1px white;
+      background-color: lime;
+      padding:5px;
+      border-radius: 5px;
+      border:1px solid black;
+    }
+#creat{
+  z-index:999999999;
+  position: absolute;
+  font-size: 8px;
+  top:12px;
+  left:280px;
+  font-weight: bolder;
+  font-family: Monospace;
+  text-shadow: -1px -1px 1px white;
+  background: linear-gradient(to bottom right, #00ff00, #007700);
+  padding:5px;
+  border-radius: 5px;
+  border:2px solid black;
+}
+    #garis{
+      z-index:99999;
+      position: absolute;
+      font-size: 35px;
+      top:475px;
+      left:1px;
+      font-weight: bolder;
+      color:brown;
+      font-family: Monospace;
+      
+      
+    }
+    #lagu{
+      background-color: white;
+      border-radius:10px;
+      z-index:9;
+      position: absolute;
+      font-size: 39px;
+      top:460px;
+      left:290px;
+      transform: rotate(-25deg);
+      font-weight: bolder;
+      color:brown;
+      font-family: Monospace;
+    }
+    #back{
+      padding: 5px;
+      background-color: red;
+      border-radius:10px;
+      z-index:9;
+      position: absolute;
+      font-size: 21px;
+      top:60px;
+      left:1px;
+      font-weight: bolder;
+      color:white;
+      font-family: Monospace;
+    }
+    #keterangan{
+      padding: 5px;
+      background-color: yellow;
+      border-radius:10px;
+      z-index:9;
+      position: absolute;
+      font-size: 16px;
+      top:100px;
+      left:1px;
+      font-weight: bolder;
+      color:black;
+      font-family: Monospace;
+    }
+    #wrapPeringkat{
+      display: flex;
+      margin-left:90px;
+    }
+    #peringkat{
+      font-size: 16px;
+      background-color: yellow;
+      padding:10px;
+      color:black;
+      font-family: Monospace;
+      font-weight: bolder;
+    }
+    .btnn{
+      background-color: red;
+      color:white;
+      padding:5px;
+      border-radius:5px;
+      margin-left:15px;
+    }
+    #stage{
+      display: flex;
+      background-color: yellow;
+      padding: 5px 10px;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+    #stage1,#stage2,#backStage{
+      text-align: center;
+      font-size: 14px;
+      font-family: Monospace;
+      background-color: black;
+      color:white;
+      padding:10px;
+      border-radius:10px;
+      font-weight:bolder;
+    }
+    #goldLuar{
+      position: absolute;
+      top:10px;
+      font-size: 21px;
+      color:orange;
+      font-family: Monospace;
+      text-shadow: -1px -1px 1px red;
+      background-color: black;
+      padding:5px 10px;
+      border-radius:20px;
+      border:1px solid gold;
+    }
+    #menuShop{
+      display: flex;
+      flex-wrap:wrap;
+      padding:10px;
+      background-color: black;
+      gap:10px;
+      text-align: center;
+      margin-top:55px;
+    }
+    #menuSkin{
+      display: flex;
+      flex-wrap:wrap;
+      padding:10px;
+      background-color: black;
+      gap:10px;
+      text-align: center;
+      margin-top:55px;
+    }
+    #flowerSunBuy,#flowerSunBuy2,#flowerSunBuy3,#flowerSunBuy4,
+    #balonUdaraBuy,#balonUdaraBuy2,#skin1,#skin2,#sItemh{
+      font-size: 21px;
+      font-weight:bolder;
+      background-color: white;
+      padding:5px;
+      border-radius:10px;
+      color:orange;
+      text-shadow: -1px -1px 1px black;
+    }
+    #gridSkin{
+         display: grid;
+         grid-template-columns: 1fr 1fr 1fr;
+         gap:20px;
+         background-color: #222;
+         padding:5px;
+    }
+    #gridItem{
+         display: grid;
+         grid-template-columns: 1fr 1fr 1fr 1fr;
+         gap:5px;
+         background-color: #222;
+         padding:7px;
+    }
+
+
+    
+    #flowerSun{
+      z-index: 999999999;
+      position: absolute;
+      font-size: 75px;
+      top:480px;
+      transform: rotate(0deg);
+      left:5px;
+    }
+    #flowerSun2{
+      z-index: 999999999;
+      position: absolute;
+      font-size: 75px;
+      top:480px;
+      transform: rotate(0deg);
+      left:80px;
+    }
+    #flowerSun3{
+      z-index: 999999999;
+      position: absolute;
+      font-size: 75px;
+      top:480px;
+      transform: rotate(0deg);
+      left:150px;
+    }
+    #balonUdara{
+      z-index: 999999999;
+      position: absolute;
+      font-size: 75px;
+      top:100px;
+      transform: rotate(0deg);
+      left:250px;
+      text-shadow: -3px -3px 3px red
+    }
+    #backShop{
+      padding:5px 10px;
+      border-radius:5px;
+      color:white;
+    }
+    #backSkin{
+      padding:5px 10px;
+      border-radius:5px;
+      color:white;
+    }
+    #infoMario{
+      top:370px;
+      left:10px;
+      position:absolute;
+      background-color:black;
+      font-size:5px;
+      padding:5px 10px;
+      color:yellow;
+      font-family:Monospace;
+      border-radius:5px;
+      border:2px solid lime;
+      text-align:center;
+      font-weight:bolder
+    }
+    #wrapMario{
+      top:300px;
+      left:98px;
+      position:absolute;
+      background-color:yellow;
+      font-size:10px;
+      padding:5px 10px;
+      color:black;
+      font-family:Monospace;
+      border-radius:5px;
+      border:2px solid black;
+      text-align:center;
+      font-weight:bolder
+    }
+    #inptMario{
+      width:50px;
+      margin-bottom:20px
+    }
+    #kirimMario{
+      background-color:green;
+      color:white;
+      width:60%;
+      font-size:15px;
+      margin-left:15px;
+      border-radius:5px;
+      border:1px solid black
+    }
+    #backMario{
+      position: absolute;
+      background-color: yellow;
+      font-size: 31px;
+      font-weight:bolder;
+      padding:5px 10px;
+      transform: rotate(-25deg);
+      top:234px;
+      left:50px;
+    }
+    #listItem{
+         font-size: 21px;
+         padding: 6px;
+         color:white;
+         font-family: Monospace;
+         background-color: #222;
+    }
+    #ganIt{
+       background-color:black;
+       color:white;
+       border:1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div id="backMario">KEMBALI</div>
+  <div id="infoMario"></div>
+  <div id="wrapMario">
+     <div id="papanMario"></div>
+     <input id="inptMario">
+     <div id="kirimMario">KIRIM</div>
+  </div>
+  <div id="menuSkin">
+   <div style="color:white;font-size:31px"> Ganti Skin</div>
+   <div id="gridSkin">
+         <div id="skina"></div>
+         <div id="skinb"></div>
+         <div id="skinc"></div>
+         <div id="skind"></div>
+         <div id="skine"></div>
+   </div>
+      <div style="color:white;font-size:31px"> Ganti Item</div>
+     <div id="imgItem1" > </div>
+   <div id="gridItem">
+         <div id="itema"></div>
+         <div id="itemb"></div>
+         <div id="itemc"></div>
+         <div id="itemd"></div>
+         <div id="iteme"></div>
+         <div id="itemf"></div>
+         <div id="itemg"></div>
+         <div id="itemh"></div>
+         <div id="itemi"></div>
+   </div>
+           <div id="imgItem" > </div>
+           <div id="listItem" > hanya bisa memilih 3 item</div>
+    <div  style="background-color:red" id="backSkin">kembali ke menu utama</div>
+  </div>
+  <div id="menuShop">
+    <div style="color:white;font-size:31px"> SELAMAT BERBELANJA</div>
+    <div id="flowerSunBuy">🌻<br>$500</div>
+    <div id="flowerSunBuy2">🌻<br>$500</div>
+    <div id="flowerSunBuy3">🌻<br>$500</div>
+    <div id="flowerSunBuy4">🌻 animation<br>$300</div>
+    <div id="balonUdaraBuy">🪂<br>$2000</div>
+    <div id="balonUdaraBuy2">🪂 animation<br> $1000</div>
+    <div id="skin1">skin jeruk<br>$800</div>
+    <div id="skin2">skin sapi<br> $1500</div>
+    <div id="sItemh">Item ke 8<br> $5000</div>
+    <div  style="background-color:red" id="backShop">kembali ke menu utama</div>
+  </div>
+  <div id="goldLuar"></div>
+  <div id="peringkat">djdjdjs</div>
+  <div id="keterangan"></div>
+  <div id="back">kembali ke menu utama</div>
+  <div id="abslt">
+     <div id="lagu">🔇</div>
+     <div id="garis">■■■■■■■■■■■</div>
+     <div id="halo">Ramadhan<br>Karim</div>
+     <div id="creat"></div>
+     <div id="bulan">🌙</div>
+     <div id="pesawat">✈️</div>
+     <div id="masjid">🕌</div>
+     
+     <div id="flowerSun">🌻</div>
+     <div id="flowerSun2">🌻</div>
+     <div id="flowerSun3">🌻</div>
+     <div id="balonUdara">🪂</div>
+
+  </div>
+  <div id="menuUtama">
+    <div id="menuUtama2">
+       <div id="rank">Rank Mode</div>
+       <div id="enjoy">Free mode</div>
+       <div id="shop">Shop</div>
+       <div id="skinM">Item</div>
+       <div id="about">About</div>
+    </div>
+  </div>
+  <div id="menuEnjoy">
+     <div id="modeEnjoy">🧨🧨🧨<br><br>petasan</div>
+     <div id="destroy">️ 🪨️ 👑 🔑<br><br>Mencari Mahkota</div>
+     <div id="mario">🪂🪂🪂<br><br>Yuk Cari</div>
+     <div id="papanNama">🏆🏆🏆<br><br>Papan peringkat</div>
+     <div id="backMenuEnjoy" style="background-color:red">Kembali ke menuUtama</div>
+  </div>
+  <div id="stage">
+    <div id="stage1">STAGE 1<br><br>JEMBATAN</div>
+    <div id="stage2">STAGE 2<br><br>Harta Karun</div>
+    <div  style="background-color:red" id="backStage">Kembali ke MODE PETASAN</div>
+  </div>
+  <div id="menuLv">
+     <div id="lv1">🌌🌌🌌<br><br>LEVEL 1</div>
+     <div id="lv2">🏜🏜🏜<br><br>LEVEL 2</div>
+     <div id="lv3">🏕🏕🏕<br><br>LEVEL 3</div>
+     <div id="lv4">🛤🛤🛤<br><br>LEVEL 4</div>
+     <div id="lv5">🌇🌇🌇<br><br>LEVEL 5</div>
+     <div id="lv6">🏞🏞🏞<br><br>LEVEL 6</div>
+     <div id="lv7">🏖🏖🏖<br><br>LEVEL 7</div>
+     <div id="lv8">🌄🌄🌄<br><br>LEVEL 8</div>
+     <div id="lv9">👻☠️🦅<br><br>LEVEL 9</div>
+     <div id="lv10">⏳️⏳️⏳️<br><br>LEVEL 10</div>
+     <div id="lock" style="background-color:red">Kembali ke menu utama</div>
+  </div>
+  <div id="menuGame">
+    <div id="info">
+    <div id="isiInfo">🟡 Menambah score 10<br>🔴 Mengurangi score 10<br>⚪️
+    Menambah score 5<br>🟤️ Mengurangi score 5</div>
+    <div id="isiInfo2">Raih point 100 pas untuk naik LV<br>Semangat ibadah puasanya</div>
+  </div>
+  <div id="ucapan">GAME OVER</div>
+  <div id="kembali">kembali</div>
+  <div id="score">score : 0</div>
+  <div id="lv">LV 1</div>
+  <div id="time">snake speed : 0</div>
+  <div id="gold">$ : 0</div>
+  <canvas id="canvas2"></canvas>
+  <canvas id="canvas"></canvas>
+
+  <div class="control">
+     <button onclick="runGame.move('atas')">⬆️</button>
+     <button onclick="runGame.move('bawah')">⬇️</button>
+     <button onclick="runGame.move('kiri')">⬅️</button>
+     <button onclick="runGame.move('kanan')">➡️</button>
+     <button id="ganIt">Ganti</button>
+     <button id="jumping">JUMP</button>
+
+  </div>
+ </div>
+
+ 
+  <script>
+    
+    let coin=new Audio("coin.m4a")
+    let batuAudio=new Audio("batuAudio.m4a")
+    let keyAudio=new Audio("pickItem.m4a")
+    let mahkotaAudio=new Audio("mahkota.m4a")
+    let nightAudio=new Audio("Night.m4a")
+    let bomAudio=new Audio("ledakan.m4a")
+    let bomAudio2=new Audio("ledakan2.m4a")
+    let timefreeze=new Audio("timefreeze.m4a")
+    let newitem=new Audio("newitem.m4a")
+    let tombol=new Audio("tombol.m4a")
+    let lawar=new Audio("lawar.m4a")
+    let nama;
+    let nama2;
+    let nama3;
+    
+    let creator ="Lucky wahyu"
+    const ctx = canvas.getContext("2d");
+    const ctx2 = canvas2.getContext("2d");
+    creat.innerHTML=`dibuat oleh<br>${creator}`
+    canvas.width = 300;
+    canvas.height = 300;
+    canvas2.width = 300;
+    canvas2.height = 30;
+    let isGameRun=false
+    let isGameRun2=false
+    menuLv.style.display="none"
+    back.style.display="none"
+    keterangan.style.display="none"
+    menuGame.style.display="none"
+    kembali.style.display="none"
+    wrapMario.style.display="none"
+    infoMario.style.display="none"
+    backMario.style.display="none"
+    jumping.style.display="none"
+  
+    if(!localStorage.getItem("sss"))
+        localStorage.setItem("sss","[]")
+        let param=JSON.parse(localStorage.getItem("sss"))
+    if(!localStorage.getItem("sss2"))
+        localStorage.setItem("sss2","[]")
+        let param2=JSON.parse(localStorage.getItem("sss2"))
+    if(!localStorage.getItem("sss2b"))
+        localStorage.setItem("sss2b","[]")
+        let param2b=JSON.parse(localStorage.getItem("sss2b"))
+    if(!localStorage.getItem("sss2c"))
+        localStorage.setItem("sss2c","[]")
+        let param2c=JSON.parse(localStorage.getItem("sss2c"))
+    
+    if(!localStorage.getItem("skin"))
+        localStorage.setItem("skin","basic")
+    if(!localStorage.getItem("itemUlarLwkjr"))
+        localStorage.setItem("itemUlarLwkjr","")
+        let strItem = localStorage.getItem("itemUlarLwkjr")
+    if(!localStorage.getItem("arrIt"))
+        localStorage.setItem("arrIt","[]")
+        let arrIt=JSON.parse(localStorage.getItem("arrIt"))
+     //jika ada kesalahan pada localStorage
+              //if(param2=="lucky wahyu")
+           //localStorage.setItem("sss2","[]")
+     
+    //if(param=="skin1")
+       //localStorage.clear("sss")
+    
+      //localStorage.clear("sss2b")
+      let isItemd=false
+      if(param.includes("itemd"))
+         isItemd=true
+      let isIteme=false
+      if(param.includes("iteme"))
+         isIteme=true
+      let isItemf=false
+      if(param.includes("itemf"))
+         isItemf=true
+      let isItemg=false
+      if(param.includes("itemg"))
+         isItemg=true
+      let isItemi=false
+      if(param.includes("itemi"))
+         isItemi=true
+         //if(param2=="500")
+           //localStorage.setItem("sss2","[]")
+     class Bar{
+        constructor(){
+            this.hp=110
+            this.hp2=110
+            this.tmBom=50
+            this.tmWak=60
+            this.isHp="putih"
+            this.cHp2="#eee"
+            this.mana=20
+            this.item=""
+            this.itemb=""
+            this.itemc=""
+            this.itemd=""
+            this.itemi=""
+            this.cItem="#2D3436"
+            this.cItemb="#2D3436"
+            this.isUlti="nonAktif"
+            const manaGradient = ctx2.createLinearGradient(10, 17, this.mana + 10, 22) 
+            manaGradient.addColorStop(0, "#74B9FF") // Light blue
+            manaGradient.addColorStop(1, "#0984E3") // Darker blue
+            this.styleMana=manaGradient
+            
+        }
+        draw() {
+        // bar pertama
+           ctx2.fillStyle = "#2D3436" // Dark gray background
+           ctx2.fillRect(5, 5, 120, 25)
+    
+        // HP Bar dengan gradient
+         const hpGradient = ctx2.createLinearGradient(10, 7, this.hp + 10, 13)
+         hpGradient.addColorStop(0, "#FF6B6B") // Light red
+         hpGradient.addColorStop(1, "#EE5253") // Darker red
+         ctx2.fillStyle = hpGradient
+          ctx2.fillRect(10, 8, this.hp, 7)
+          ctx2.fillStyle = this.cHp2
+          ctx2.fillRect(10, 8, this.hp2, 7)
+    
+         // Mana Bar dengan gradient
+          
+          ctx2.fillStyle = this.styleMana
+          ctx2.fillRect(10, 18, this.mana, 7)
+    
+         // Menambahkan stroke/outline tipis
+          ctx2.strokeStyle = "#636E72"
+          ctx2.strokeRect(5, 5, 120, 25)
+
+
+             
+        }
+       draw2(){
+          //bar kedua
+          ctx2.fillStyle="#2D3436"
+          ctx2.fillRect(130,5,80,25)
+          ctx2.strokeStyle = "#636E72"
+          ctx2.strokeRect(130, 5, 80, 25)
+          
+          //wadah a
+          ctx2.font="8px Arial"
+          ctx2.fillText(this.item,130,15)
+          ctx2.fillStyle=this.cItem
+          ctx2.fillRect(145,10,this.tmBom,5)
+          //wadah b
+          ctx2.font="8px Arial"
+          ctx2.fillText(this.itemb,130,25)
+          ctx2.fillStyle=this.cItemb
+          ctx2.fillRect(145,20,this.tmWak,5)
+          
+          //bar ketiga
+          ctx2.fillStyle="#2D3436"
+          ctx2.fillRect(215,5,30,25)
+          ctx2.strokeStyle = "#636E72"
+          ctx2.strokeRect(215, 5, 30, 25)
+          //wadah a
+          ctx2.font="8px Arial"
+          ctx2.fillText(this.itemc,225,15)
+          //wadah b
+          ctx2.font="8px Arial"
+          ctx2.fillText(this.itemd,225,25)
+          //bar keempat
+          ctx2.fillStyle="#2D3436"
+          ctx2.fillRect(250,5,50,25)
+          ctx2.strokeStyle = "#636E72"
+          ctx2.strokeRect(250, 5, 50, 25)
+          //wadah a
+          let img = new Image()
+          img.src=this.itemi
+          ctx2.drawImage(img,0,0,720,720,260,7,30,20)
+
+          
+       }
+    }
+    
+    
+
+
+//gold storage
+if(!localStorage.getItem("sss3"))
+        localStorage.setItem("sss3",0)
+        let param3=JSON.parse(localStorage.getItem("sss3"))
+    
+    let bar = new Bar()
+    class Snake{
+      constructor(){
+        this.body=[{x:0,y:0}]
+        this.size=20
+        this.speed=7
+        this.ubahArah=null
+        this.isEat=false
+        this.gameOver=false
+        this.x=20
+        this.y=260
+        this.jump=false
+        this.bgY=0
+        this.startJump=0
+        this.index=0
+        this.scale=1
+        this.sprites=[]
+        this.hpPlayer=50
+        this.fps=0
+        this.isOver=false
+      }
+      draw(){
+        this.body.forEach(s=>{
+           ctx.fillStyle="white"
+          ctx.fillRect(s.x,s.y,this.size,this.size)
+        })
+      }
+      drawMdrn() {
+
+        const gradientColors = [
+           '#0077BE', // Ocean Blue
+           '#1E90FF', // Dodger Blue
+           '#00BFFF', // Deep Sky Blue
+           '#4FB4F2'  // Modern Light Blue
+         ];
+
+         this.body.forEach((segment, index) => {
+    // Create gradient
+          const gradient = ctx.createLinearGradient(
+           segment.x, 
+           segment.y, 
+           segment.x + this.size, 
+           segment.y + this.size
+           );
+
+          // Add color stops for gradient effect
+          const colorIndex = index % gradientColors.length;
+          const nextColorIndex = (index + 1) % gradientColors.length;
+    
+           gradient.addColorStop(0, gradientColors[colorIndex]);
+           gradient.addColorStop(1, gradientColors[nextColorIndex]);
+
+          // Apply gradient and draw segment
+          ctx.fillStyle = gradient;
+          ctx.fillRect(segment.x, segment.y, this.size, this.size);
+           });
+         }
+      drawU(){
+        this.body.forEach(s=>{
+           ctx.fillStyle="yellow"
+          ctx.fillRect(s.x,s.y,this.size,this.size)
+        })
+      }
+      drawU4(){
+        this.body.forEach(s=>{
+           ctx.fillStyle="purple"
+          ctx.fillRect(s.x,s.y,this.size,this.size)
+        })
+      }
+      drawImg(path){
+          
+        this.body.forEach(s=>{
+           let img=new Image()
+           img.src=path
+          ctx.drawImage(img,10*this.fps,0,10,50,s.x,s.y,this.size,this.size)
+        })
+      }
+      draw2(){
+        ctx.fillStyle="yellow"
+        ctx.fillRect(this.x,this.y,20,20)
+      }
+      drawSprite(){
+        let sprite=new Image()
+        sprite.src="run.png"
+        sprite.onload=()=>{
+           if(this.scale==1){
+             ctx.save()
+              ctx.scale(this.scale,1)
+              ctx.drawImage(sprite,this.index*190,0,190,300,this.x,this.y,40,40)
+              ctx.restore()
+             }else{
+              ctx.save()
+              ctx.scale(this.scale,1)
+              ctx.drawImage(sprite,this.index*190,0,190,300,-this.x-40,this.y,40,40)
+              ctx.restore()
+             }
+          }
+      }
+      drawSprite2(){
+        for(let i=0;i<=4;i++){
+          let sprite=new Image()
+          sprite.src=`frame-${i+1}.png`
+        this.sprites.push(sprite)
+        }
+           if(this.scale==1){
+             ctx.save()
+             ctx.fillStyle="red"
+             ctx.fillRect(this.x,this.y-10,this.hpPlayer,5)
+             ctx.restore()
+             ctx.save()
+              ctx.scale(this.scale,1)
+              ctx.drawImage(this.sprites[this.index],0,0,307,445,this.x,this.y,40,40)
+              ctx.restore()
+             }else{
+               ctx.save()
+             ctx.fillStyle="red"
+             ctx.fillRect(this.x-5,this.y-10,this.hpPlayer,5)
+             ctx.restore()
+              ctx.save()
+              ctx.scale(this.scale,1)
+              ctx.drawImage(this.sprites[this.index],0,0,307,445,-this.x-40,this.y,40,40)
+              ctx.restore()
+             }
+          
+      }
+      drawSpriteJump(){
+          let sprite=new Image()
+          sprite.src=`jump-1.png`
+          if(this.scale==1){
+             ctx.save()
+             ctx.scale(this.scale,1)
+              ctx.drawImage(sprite,0,0,307,445,this.x,this.y,40,40)
+              ctx.restore()
+          }else{
+             ctx.save()
+             ctx.scale(this.scale,1)
+             ctx.drawImage(sprite,0,0,307,445,-this.x-40,this.y,40,40)
+              ctx.restore()
+          }
+      }
+      move(){
+        if(this.ubahArah){
+          switch(this.ubahArah){
+            case "kanan":
+              this.body[0].x+=this.speed
+              break
+            case "kiri":
+              this.body[0].x-=this.speed
+              break
+            case "atas":
+              this.body[0].y-=this.speed
+              break
+            case "bawah":
+              this.body[0].y+=this.speed
+              break
+          }
+        }
+      }
+      move2(arah){
+          switch(arah){
+            case "kanan":
+              this.x+=this.speed
+              this.bgY+=10
+              this.index++
+              this.scale=1
+              break
+            case "kiri":
+              this.x-=this.speed
+              this.bgY-=10
+              this.index++
+              this.scale=-1
+              break
+          }
+      }
+      teleportasi(){
+        if(this.body[0].x<0)
+            this.body[0].x+=canvas.width
+        if(this.body[0].x>=canvas.width)
+            this.body[0].x-=canvas.width
+        if(this.body[0].y<0)
+            this.body[0].y+=canvas.height
+        if(this.body[0].y>=canvas.height)
+            this.body[0].y-=canvas.height
+      }
+      stopScreen(){
+        this.x=Math.max(20,Math.min(this.x,canvas.width-150))
+        
+      }
+      stopScreenBgY(){
+        this.bgY=Math.max(20,Math.min(this.bgY,1200))
+        
+      }
+      isSnakeEatBody(){
+        const head=this.body[0]
+        if(this.body.length>2){
+          for(let i=1;i<this.body.length;i++){
+            if(head.x==this.body[i].x&&head.y==this.body[i].y){
+              if(!this.gameOver){
+              let score=runGame.point
+              let dataPlayer={nama,score}
+               param2.push(dataPlayer)
+              localStorage.setItem("sss2",JSON.stringify(param2))
+              console.log("yes")
+              this.gameOver=true
+              ucapan.style="background:linear-gradient(to right,red,tomato)"
+            ucapan.innerHTML="GAME OVER"
+            ucapan.style.display=""
+            
+            kembali.style.display=""}
+            }
+          }
+        }
+      }
+      isGameOver(kill){
+            if(this.isOver){
+                 let score=runGame.point
+              if(!this.gameOver){
+                   if(runGame.modeDes2){
+          let win=runGame.point
+          let dataPlayer={nama3,win}
+          param2c.push(dataPlayer)
+          localStorage.setItem("sss2c",JSON.stringify(param2c))}
+                   if(nama!==undefined){
+                        if(nama=="")
+                           nama="Kosong"
+                   let dataPlayer={nama,score}
+              
+               param2.push(dataPlayer)
+              localStorage.setItem("sss2",JSON.stringify(param2))
+                   }
+                   ctx.clearRect(0,0,canvas.width,canvas.height)
+                   ctx2.clearRect(0,0,canvas.width,canvas.height)
+                   lawar.pause()
+                   let isGet=false
+                   let isGetItem=`null.jpg`
+                   let isInfo
+                   
+                   if(runGame.modeDes){
+                   isInfo="raih win streak@lebih dari 6x@untuk membuka@item baru"}else{
+                   isInfo="tidak mendapatkan@item baru@selamat mencoba lagi"}
+                   if(this.body.length>=20){
+                   if(!isGet&&Math.random()<=0.4){
+                        isGet=true
+                        newitem.play()
+                    param.push("itemd")
+                    localStorage.setItem("sss",JSON.stringify(param))
+                   }
+                   if(!isGet&&param.includes("itemd")&&Math.random()<=0.3){
+                        isGet=true
+                        newitem.play()
+                    param.push("iteme")
+                    localStorage.setItem("sss",JSON.stringify(param))
+                   }
+                   if(!isGet&&param.includes("itemd")&&param.includes("iteme")&&Math.random()<=0.3){
+                        isGet=true
+                        newitem.play()
+                    param.push("itemf")
+                    localStorage.setItem("sss",JSON.stringify(param))
+                   }
+                   
+                   if(!isGet&&param.includes("itemd")&&param.includes("iteme")&&param.includes("itemf")&&Math.random()<=0.3){
+                        isGet=true
+                        newitem.play()
+                    param.push("itemg")
+                    localStorage.setItem("sss",JSON.stringify(param))
+                   }
+                   
+                   
+                   
+                   if(param.find(s=>s=="itemd")&&!isItemd){
+                        
+               isGetItem=`itemd.jpg`
+               isInfo="Item baru terbuka@efek heal hp@ketika ultimate@meningkat"
+                   }
+                   if(param.find(s=>s=="iteme")&&!isIteme){
+                        isGetItem=`iteme.jpg`
+               isInfo="Item baru terbuka@ultimate berlangsung@lebih lama"
+                   }
+                   if(param.find(s=>s=="itemf")&&!isItemf){
+                        isGetItem=`itemf.jpg`
+                        
+                      isInfo="Item baru terbuka@menerima demage@lebih sedikit@ketika menyentuh@wall"
+                        
+                   }
+                   if(param.find(s=>s=="itemg")&&!isItemg){
+                        isGetItem=`itemg.jpg`
+                        isInfo="Item baru terbuka@mana terisi@secara perlahan-lahan@ketika game dimulai"
+                   }
+                   }
+                   if(runGame.point>=6&&runGame.modeDes){
+                       newitem.play()
+                    param.push("itemi")
+                    localStorage.setItem("sss",JSON.stringify(param))
+                   }
+                   if(param.find(s=>s=="itemi")&&!isItemi){
+                       isGetItem=`itemi.jpg`
+                     isInfo="Item baru terbuka@snake memiliki@armor  berwarna@putih"
+                   }
+                   if(nama!==undefined){
+               let score=runGame.point
+                  if(nama==""){
+                     nama = "Mode Petasan  kamu_tidak memberi_nama"
+                  }else{nama=`Mode Petasan  nama:${nama} score:${score}`}
+              
+              }
+              console.log("yes")
+              this.gameOver=true
+              if(nama==undefined&&typeof kill=="number")
+                     nama ="kamu_bermain di_Mode_Rank  tidak_ada peringkat untuk_mode_ini"
+              if(nama==undefined&&typeof kill=="boolean")
+                     nama =`kamu_bermain Mode_Mahkota nama:${nama2||nama3}`
+          ctx.fillStyle="#222"
+          ctx.fillRect(8,8,280,50)
+          ctx.fillStyle="red"
+          ctx.font="bold 35px Monospace"
+          ctx.fillText("Game Over",150,45)
+          ctx.fillStyle="#222"
+          ctx.fillRect(8,65,280,225)
+          let scr=Math.abs(runGame.point)
+          let bon;
+          if(typeof kill === "number")
+              bon = Math.floor((kill+this.body.length)*scr/300)
+          if(typeof kill === "boolean")
+              bon = Math.floor(runGame.point*50)
+          let isJum;
+          if(typeof kill==="number"){
+              isJum=`KETERANGAN@total kill:${kill}@total length:${this.body.length}@total score:${scr}@bonus : $ ${bon}`}
+          if(typeof kill==="boolean"){
+              isJum=`KETERANGAN@total win:${runGame.point}@bonus :@win × 50@total bonus: $ ${bon}`}
+          let hrf=isInfo.split("@")
+          let hrf2=nama.split(" ")
+          let hrf3=isJum.split("@")
+          setInterval(()=>{
+          let img=new Image()
+              img.src=isGetItem
+          ctx.drawImage(img,0,0,720,720,20,70,60,60)
+          
+          ctx.font="14px Monospace"
+          hrf.forEach((e,i)=>{
+             
+             setTimeout(()=>{
+             let color = i==0?"lime":"white";
+             ctx.fillStyle=color
+             ctx.fillText(e,180,88+i*20)
+             },500*i)
+          })
+          ctx.fillStyle="black"
+          ctx.fillRect(8,170,280,2)
+          
+          hrf2.forEach((e,i)=>{
+             setTimeout(()=>{
+               let color = i<=1?"lime":"white";
+               ctx.fillStyle=color
+               ctx.fillText(e,70,190+i*20)
+             },500*i)
+             
+          })
+          hrf3.forEach((e,i)=>{
+             setTimeout(()=>{
+               let color;
+               switch(i){
+                 case 0 :
+                      color="lime"
+                 break
+                 case 1 :
+                      color="red"
+                 break
+                 case 2 :
+                      color="white"
+                 break
+                 case 3 :
+                      color="aqua"
+                 break
+                 case 4 :
+                      color="yellow"
+                 break
+               }
+               ctx.fillStyle=color
+               ctx.fillText(e,210,190+i*20)
+             },500*i)
+             
+          })
+          let totalG=param3+bon
+          ctx.fillStyle="black"
+          ctx.fillRect(130,170,2,130)
+          localStorage.setItem("sss3",JSON.stringify(totalG))
+          setTimeout(()=>{
+          gold.innerHTML=`$ ${Math.floor(totalG)}`},1500)
+          },80)
+          //kubus
+          ctx2.fillStyle = "#cc0000";
+          ctx2.fillRect(200, 5, 90, 40);
+
+         ctx2.fillStyle = "white";
+         ctx2.font = "bold 16px Monospace"; 
+         ctx2.fillText('kembali', 210, 23);  
+          canvas2.addEventListener("click",(e)=>{
+             
+             let rect = canvas2.getBoundingClientRect(); 
+             let dx = e.clientX - rect.left;
+             let dy = e.clientY - rect.top;
+             if(dx>=200&&dx<=290&&dy>=5&&dy<=45){
+                  window.location.reload()
+             }
+          })
+          
+              }
+            }
+          }
+        
+      
+    }
+    class Food {
+      constructor(){
+        this.x=Math.floor(Math.random()*280)+0
+        this.y=Math.floor(Math.random()*280)+0
+        this.size=10
+        this.randomX=Math.random()<0.5?-1:1
+        this.randomY=Math.random()<0.5?-1:1
+        this.speed=3
+        this.hk=25
+        this.follow=true
+        this.indexM=0
+        this.scaleM=1
+        this.hpMusuh=50
+        this.isFont="10px Monospace"
+        this.isSize="17px Arial"
+        this.isBurn=false
+        this.fpsBurn=0
+        this.isGold = false
+        this.isGoldRun =50
+        this.isGoldUp = 0
+        this.isDor = false
+        this.isDorUp = 0
+        this.isHpkal = 30
+        this.fpsKe=0
+        this.fpsUltiKe=0
+        this.hpKe=20
+        this.pathKe="ke.png"
+        this.arah=""
+        this.arah2="nor"
+      }
+      drawKe(){
+        let img = new Image()
+        img.src=this.pathKe
+        if(this.arah2=="nor"){
+        if(this.arah=="kanan"){
+        ctx.save()
+        ctx.drawImage(img,32*this.fpsKe,32,32,32,this.x,this.y,40,40)
+        ctx.fillStyle="#EE5253"
+        ctx.fillRect(this.x+10,this.y,this.hpKe,4)
+        ctx.restore()}
+        if(this.arah=="kiri"){
+        ctx.save()
+        ctx.drawImage(img,32*this.fpsKe,96,32,32,this.x,this.y,40,40)
+        ctx.fillStyle="#EE5253"
+        ctx.fillRect(this.x+10,this.y,this.hpKe,4)
+        ctx.restore()}
+        }else{//warna serahkan ke ai claude bung
+             let gradient = ctx.createRadialGradient(
+             this.x + 20, this.y + 20, 0,
+             this.x + 20, this.y + 20, 10 * this.fpsUltiKe
+                 );
+           gradient.addColorStop(0, '#ffffff')
+           gradient.addColorStop(0.4, '#00ffff')
+           gradient.addColorStop(0.7, '#0080ff')
+           gradient.addColorStop(1, '#0000ff')
+          ctx.beginPath();
+          ctx.fillStyle = gradient;
+          ctx.arc(this.x + 20, this.y + 20, 10 * this.fpsUltiKe, 0, Math.PI * 2);
+          ctx.fill();
+             ctx.fillStyle="#EE5253"
+             ctx.fillRect(this.x+10,this.y,this.hpKe,4)
+             ctx.drawImage(img,32*this.fpsKe,0,32,32,this.x,this.y,40,40)
+             //creator
+        }
+      }
+      drawGold(text,x,y){
+        this.x=x
+        this.y=y
+        ctx.save()
+        ctx.textAlign="center"
+        ctx.font="21px Arial"
+        ctx.fillText(text,x,y+5)
+        ctx.restore()
+        ctx.save()
+        ctx.fillStyle="gold"
+        ctx.fillRect(x-12,y-20,this.hk,3)
+        ctx.restore()
+                     //creator
+      }
+      drawAnimate(foodColor,text,x,y){
+        if(this.follow){
+        this.x=x
+        this.y=y}
+        ctx.beginPath()
+          ctx.strokeStyle="black"
+          ctx.lineWidth=2
+          
+          ctx.arc(this.x,this.y,8,0,Math.PI*2)
+          ctx.stroke()
+        ctx.beginPath()
+        ctx.fillStyle=foodColor
+        ctx.arc(this.x,this.y,8,0,Math.PI*2)
+        ctx.fill()
+        ctx.font="10px Monospace"
+        ctx.fillStyle="black"
+        ctx.fillText(text,this.x,this.y+5)
+        ctx.textAlign="center"
+      }             //creator
+      draw(foodColor,text){
+        ctx.beginPath()
+          ctx.strokeStyle="black"
+          ctx.lineWidth=2
+          
+          ctx.arc(this.x,this.y,this.size,0,Math.PI*2)
+          ctx.stroke()
+        ctx.beginPath()
+        ctx.fillStyle=foodColor
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2)
+        ctx.fill()
+        ctx.font=this.isFont
+        ctx.fillStyle="black"
+        ctx.fillText(text,this.x,this.y+5)
+        ctx.textAlign="center"
+      }             //creator
+      draw2(text){
+        ctx.beginPath()
+        ctx.textAlign="center"
+        ctx.font=this.isSize
+        ctx.fillText(text,this.x,this.y+5)
+        ctx.fill()
+      }
+      drawBurn(text) {
+        // Draw the text first
+         if (!this.isBurn) {
+             ctx.beginPath();
+            ctx.textAlign = "center";
+            ctx.font = this.isSize;
+            ctx.fillText(text, this.x, this.y + 5);
+            ctx.fill();
+          }
+  
+         // Draw explosion with gradient if burning
+          if (this.isBurn) {
+             // Draw the text
+              ctx.beginPath();
+              ctx.textAlign = "center";
+              ctx.font = this.isSize;
+              ctx.fillText("", this.x, this.y + 5);
+    
+            // Create radial gradient for explosion
+            const gradient = ctx.createRadialGradient(
+             this.x, this.y + 5, 0,           // Inner circle (x, y, radius)
+              this.x, this.y + 5, 10 * this.fpsBurn  // Outer circle (x, y, radius)
+              );
+    
+            // Add gradient colors
+           gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');    // White center
+           gradient.addColorStop(0.2, 'rgba(255, 255, 0, 1)');    // Yellow
+           gradient.addColorStop(0.6, 'rgba(255, 140, 0, 1)');    // Orange
+           gradient.addColorStop(1, 'rgba(255, 69, 0, 0.5)');     // Semi-transparent red-orange
+    
+           // Draw the explosion
+          ctx.beginPath();
+          ctx.fillStyle = gradient;
+          ctx.arc(this.x, this.y-10, 15 * this.fpsBurn, 0, Math.PI * 2);
+          ctx.fill();
+         }
+       }
+       drawKal(){
+            if(this.isGold){
+                 ctx.beginPath()
+                 ctx.fillStyle="gold"
+                 ctx.arc(this.x,this.y-5-this.isGoldUp,8,0,Math.PI*2)
+                 ctx.fill()
+                 ctx.font="16px Arial"
+                 ctx.fillStyle="black"
+                 ctx.fillText("$",this.x,this.y-this.isGoldUp)
+            }
+            if(!this.isDor){
+                 ctx.beginPath()
+                 ctx.font="16px Arial"
+                 ctx.fillText("🔋",this.x,this.y)
+                 ctx.fill()
+            }
+            
+            if (this.isDor) {
+    // Gradient Horizontal (—)
+    let gradientH = ctx.createLinearGradient(this.x - this.isDorUp / 2, this.y, this.x + this.isDorUp / 2, this.y);
+    gradientH.addColorStop(0, "red");         // Ujung kiri merah
+    gradientH.addColorStop(0.5, "orange");    // Tengah oranye
+    gradientH.addColorStop(1, "yellow");      // Ujung kanan kuning
+
+    // Gradient Vertikal (|)
+    let gradientV = ctx.createLinearGradient(this.x, this.y - this.isDorUp / 2, this.x, this.y + this.isDorUp / 2);
+    gradientV.addColorStop(0, "red");         // Ujung atas merah
+    gradientV.addColorStop(0.5, "orange");    // Tengah oranye
+    gradientV.addColorStop(1, "yellow");      // Ujung bawah kuning
+             //creator
+    // Gambar bagian horizontal (—)
+    ctx.save();
+    ctx.fillStyle = gradientH;
+    ctx.fillRect(this.x - this.isDorUp / 2, this.y, 15 + this.isDorUp, 15);
+    ctx.restore();
+
+    // Gambar bagian vertikal (|)
+    ctx.save();
+    ctx.fillStyle = gradientV;
+    ctx.fillRect(this.x, this.y - this.isDorUp / 2, 15, 15 + this.isDorUp);
+    ctx.restore();
+}
+       }
+      draw3(text,x,y){
+        this.x=150
+        this.y=150
+        ctx.beginPath()
+        ctx.textAlign="center"
+        ctx.font="17px Arial"
+        ctx.fillText(text,this.x+x,this.y+y)
+        ctx.fill()
+      }
+      drawSprite(){
+        let sprite=new Image()
+        sprite.src="run.png"
+        sprite.onload=()=>{
+           if(this.scaleM==1){
+             ctx.save()
+             ctx.fillStyle="red"
+             ctx.fillRect(this.x,this.y-10,this.hpMusuh,5)
+             ctx.restore()
+             ctx.save()
+             ctx.save()
+              ctx.scale(this.scale,1)
+              ctx.drawImage(sprite,this.indexM*190,0,190,300,this.x,this.y,40,40)
+              ctx.restore()
+             }else{
+              ctx.save()
+             ctx.fillStyle="red"
+             ctx.fillRect(this.x,this.y-10,this.hpMusuh,5)
+             ctx.restore()
+             ctx.save()
+              ctx.save()
+              ctx.scale(this.scaleM,1)
+              ctx.drawImage(sprite,this.indexM*190,0,190,300,-this.x-40,this.y,40,40)
+              ctx.restore()
+             }
+          }             //creator
+      }
+      randomFood(){
+        this.x=Math.floor(Math.random()*280)+0
+        this.y=Math.floor(Math.random()*280)+0
+      }
+      move(){
+        this.x+=this.speed*this.randomX
+        this.y+=this.speed*this.randomY
+        if(this.x<=0||this.x>=canvas.width)
+           this.randomX*=-1
+        if(this.y<=0||this.y>=canvas.height)
+           this.randomY*=-1
+        this.arah = this.randomX >= 0 ? "kanan" : "kiri";
+        
+        if(Math.random()<=0.002){
+             this.arah2="unnor"
+             setTimeout(()=>{
+                this.arah2="nor"
+             },5000)
+        }
+      }             //creator
+      move2(){
+        this.x+=this.speed*this.randomX
+        if(this.x<=0||this.x>=canvas.width)
+           this.randomX*=-1
+      }
+    }
+    class Wall{
+      constructor(x,y,width,height,color){
+        this.x=x
+        this.y=y
+        this.width=width
+        this.height=height
+        this.color=color
+      }
+      draw(){
+        ctx.fillStyle=this.color
+        ctx.fillRect(this.x,this.y,this.width,this.height)
+      }
+    }
+    class Attack{
+      constructor(){
+        this.startAttack=true
+        this.x=0
+        this.y=0
+        this.skillPlayer=[]
+        this.frameSkillPlayer=0
+        this.skillUp=false
+      }
+      draw(){
+        ctx.fillStyle="red"
+        ctx.fillRect(this.x,this.y,20,20)
+      }
+      drawImg(scale,x){
+        let skillM1=new Image()
+        skillM1.src="skillM1.png"
+        ctx.save()
+        ctx.scale(scale,1)
+        ctx.drawImage(skillM1,0,80,500,500,x,this.y,80,80)
+        ctx.restore()
+      }             //creator
+      drawImgArray(scale,x){
+        for(let i=0;i<4;i++){
+        let skill=new Image()
+        skill.src=`skill${i+1}.png`
+        this.skillPlayer.push(skill)
+        }
+        ctx.save()
+        ctx.scale(scale,1)
+        ctx.drawImage(this.skillPlayer[this.frameSkillPlayer],0,150,500,500,x,this.y,150,150)
+        ctx.restore()
+      }
+      isAttack(x,y,scale,j,k){
+        if(this.startAttack){
+        this.x=x
+        this.y=y
+        }
+        this.x+=scale
+        this.startAttack=false
+        if(this.x<=x-j||this.x>=x+k)
+           this.startAttack=true
+      }
+    }
+    let isCreate = creator
+    if(!isCreate){
+         let create = Math.random()
+    }
+    class Logika{
+      constructor(){
+        this.snake=new Snake()
+        this.food=new Food()
+        this.food2=new Food()
+        this.food3=new Food()
+        this.food4=new Food()
+        this.food5=new Food()
+        
+        this.kesper=new Food()
+        this.kaktus=new Food()
+        this.burung=new Food()
+        this.speedInc=new Food()
+        
+        this.stop=false
+        this.stopTime=new Food()
+        
+        this.jamur=new Food()
+        
+        this.uang=new Food()
+        this.harta=[new Food()]
+        this.hartaAnimate=new Food()
+        this.harta2=[new Food()]
+        this.hartaAnimate2=new Food()
+        this.harta3=[new Food()]
+        this.hartaAnimate3=new Food()
+        this.harta4=[new Food()]
+        this.hartaAnimate4=new Food()
+        this.harta5=[new Food()]
+        this.hartaAnimate5=new Food()
+        this.harta6=[new Food()]
+        this.hartaAnimate6=new Food()
+        
+        this.batu=[new Food()]
+        this.shake=false
+        this.wall=[]
+        
+        this.modeDes=false
+        this.modeDes2=false
+        this.key=[new Food()]
+        this.mahkota=new Food()
+        this.koinnn=[]
+        
+        this.isRun=true
+        this.flag=[]
+        this.flag2=""
+        this.soal=[]
+        this.soal2=[]
+        this.soal3=[]
+        this.soal4=[]
+        
+        this.exit=new Food()
+        this.info=[new Food()]
+        this.enterMode=[new Food()]
+        this.enterMode2=[new Food()]
+        this.down=0
+        this.tanah=false
+        this.musuh=new Food()
+        this.skillMusuh=new Attack()
+        this.skillPlayer1=new Attack()
+        
+        this.isTime=false
+        this.arrKal=[new Food(),new Food(),new Food()]
+        this.arrKe=[new Food(),new Food(),new Food(),new Food(), new Food()]
+        this.kill= 0
+        
+        this.ucapan=document.getElementById("ucapan")
+        this.point=0
+      
+      }
+      move(arah){
+        if(isGameRun){
+        if(this.snake.ubahArah=="kanan"&&arah=="kiri"||this.snake.ubahArah=="kiri"&&arah=="kanan")return
+        if(this.snake.ubahArah=="atas"&&arah=="bawah"||this.snake.ubahArah=="bawah"&&arah=="atas")return
+        this.snake.ubahArah=arah
+        }
+        if(isGameRun2){
+          this.snake.move2(arah)
+        }
+      }
+      isSnakeEatFood(foodZ,point,speed){
+        const head=this.snake.body[0]
+        this.snake.body.unshift({x:head.x,y:head.y})
+        if(!this.snake.isEat){
+        this.snake.body.pop()}else{
+          this.snake.body.unshift({x:head.x,y:head.y},{x:head.x,y:head.y})
+        }
+      
+        this.snake.isEat=false
+        const food=foodZ
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          let ularr=new Audio("ular.m4a")
+          if(bar.mana<=105&&bar.isUlti=="nonAktif"){
+          bar.mana+=15
+          }
+          if(bar.mana>=104)
+          bar.isUlti="aktif"
+          ularr.play()
+          console.log("ternyata menyentuh food dasar")
+          setTimeout(()=>{
+            this.snake.isEat=true
+          this.snake.speed=speed
+          food.randomFood()
+          if(bar.isUlti=="aktif"){
+          this.point+=point*2}else{
+               this.point+=point
+          }
+          this.isLvUp()
+          score.innerHTML=`score : ${this.point}`
+          },70)
+          
+        }
+      }
+      isSnakeTouchEnemy(enemy){
+        const head=this.snake.body[0]
+        const food=enemy
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+                 if(strItem=="itemi"){
+                 if(bar.hp2>=10&&bar.isHp=="putih"){
+                 for(let i=0;i<21;i++)
+                 bar.hp2-=1.5
+                 }
+                 if(bar.hp2<=5){
+                 bar.cHp2="#EE5253"
+                 bar.hp-=30
+                 }
+                 }else{bar.hp-=30}
+            }
+        
+      }
+      isSnakeTouchEnemyMario(enemy){
+        const head=this.snake
+        const food=enemy
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          console.log("ternyata item mode mario")
+          this.ucapan.style="background:linear-gradient(to right,red,tomato)"
+            this.ucapan.innerHTML="GAME OVER"
+            this.ucapan.style.display=""
+            this.snake.gameOver=true
+            kembali.style.display=""
+        }
+      }
+      isSnakeTouchTime(time,s){
+        const head=this.snake.body[0]
+        const food=time
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          console.log("ternyata menyentuh time")
+          timefreeze.play()
+          timefreeze.volume=1.0
+          setTimeout(()=>{
+          this.stop=true
+          this.isTime=true
+          bar.cItemb="yellow"
+          bar.itemb="⏳️"
+          canvas.style="background: radial-gradient(circle at center, #FFFFFF 0%, #f5f5f5 15%, #333 30%, #111 45%, #000000 60%, #222 75%, #e0e0e0 90%, #FFFFFF 100%)"
+
+
+
+          },1000)
+          food.randomFood()
+          
+        }
+        
+          
+          if(this.isTime)
+             bar.tmWak-=s
+          if(bar.tmWak<=0){
+               this.isTime=false
+               this.stop=false
+               bar.tmWak=60
+               bar.cItemb="#2D3436"
+               bar.itemb=""
+               canvas.style="background-color:black"
+          }
+      }
+      isBom(bom,mana){
+        const head=this.snake.body[0]
+        const food=bom
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          food.isBurn=true
+          bar.cItem="yellow"
+          bar.item="🎈"
+          bomAudio2.play()
+          if(bar.mana<=110)
+             bar.mana+=mana
+        }
+        if(food.isBurn)
+           bar.tmBom--
+        if(bar.tmBom<=0){
+           food.isBurn=false
+           bar.tmBom=50
+           bar.cItem="#2D3436"
+           bar.item=""
+           bomAudio.pause()}
+          let dx=head.x-food.x
+          let dy=head.y-food.y
+          let dis = Math.hypot(dx, dy)
+          if(food.isBurn){
+               for(let j=0;j<this.arrKal.length;j++){
+               let fod=this.arrKal[j]
+               let dxA=fod.x-food.x
+               let dyB=fod.y-food.y
+               let disB=Math.hypot(dxA,dyB)
+               if(disB<=60){
+                    fod.isGold=true
+                 }
+               }
+          }
+          if(food.isBurn){
+               for(let l=0;l<this.arrKe.length;l++){
+               let fod=this.arrKe[l]
+               let dxA=fod.x+40-food.x
+               let dyB=fod.y+40-food.y
+               let disB=Math.hypot(dxA,dyB)
+               if(disB<=60){
+                    fod.hpKe-=5
+                 }
+               }
+          }
+          if(dis<60&&food.isBurn){
+               console.log(dis)
+               
+               
+               if(strItem=="itemi"){
+                 if(bar.hp2>=5)
+                    bar.hp2-=10
+               if(bar.hp2<=5){
+                  bar.cHp2="#EE5253"
+                  bar.hp-=3}
+               }else{
+                    bar.hp-=3
+             }
+          }
+      }
+      isKal(kal){
+        const h = this.snake.body[0]
+        const kaleng = kal
+        for(let i =0; i<kaleng.length; i++){
+             const k = kaleng[i]
+             if(h.x<k.x+k.size&&h.x+this.snake.size>k.x&&h.y<k.y+k.size&&h.y+this.snake.size>k.y){
+                  console.log("menyentuh kaleng")
+                  this.snake.speed=7
+                  k.isGold=true
+                  if(bar.mana<=105&&bar.isUlti=="nonAktif"){
+                     bar.mana+=2
+                     }
+                  if(bar.mana>=104)
+                     bar.isUlti="aktif"
+             }
+           let dx = h.x-k.x
+           let dy = h.y-k.y
+           let jarak = Math.sqrt(dx**2 + dy**2)
+           if(jarak<=100&&k.isDor){
+                if(strItem=="itemi"){
+                   if(bar.hp2>=5)
+                       bar.hp2-=10
+                   if(bar.hp2<=5){
+                      bar.cHp2="#EE5253"
+                      bar.hp-=5}
+                }else{
+                     bar.hp-=2
+                }
+                console.log(jarak)
+           }
+           if(k.isDor){
+               for(let l=0;l<this.arrKe.length;l++){
+               let fod=this.arrKe[l]
+               let dxA=fod.x+40-k.x
+               let dyB=fod.y+40-k.y
+               let disB=Math.hypot(dxA,dyB)
+               if(disB<=100){
+                    fod.hpKe-=5
+                 }
+               }
+          }
+           if(k.isGold){
+               k.isGoldUp+=30
+                  if(k.isGoldUp>=100)
+                     k.isGoldUp=0
+              coin.play()
+              k.isGoldRun--
+              param3+=1
+              localStorage.setItem("sss3",JSON.stringify(param3))
+              gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+              if(k.isGoldRun<=0){
+                  k.isGold=false
+                     k.isGoldUp=false
+                     coin.pause()
+                     k.isDor=true
+                     k.isGoldRun=50
+              }
+           }
+              
+           if(k.isDor){
+               k.speed=4
+               k.isDorUp+=30
+               bomAudio.play()
+               bomAudio.volume=0.6
+               if(k.isDorUp>=150)
+                  k.isDorUp=0
+                k.isHpkal--
+                if(k.isHpkal<=0){
+                     this.point+=10
+                     score.innerHTML=`score : ${this.point}`
+                   k.speed=3
+                   k.isDor=false
+                   k.isHpkal=30
+                   bomAudio.pause()
+                   k.randomFood()
+                }
+           }
+           
+        }
+      }
+      isKe(ke){
+        const h = this.snake.body[0]
+        const k = ke
+        
+        if(h.x<k.x+40&&h.x+this.snake.size>k.x&&h.y<k.y+40&&h.y+this.snake.size>k.y){
+             k.hpKe-=5
+             this.snake.speed=7
+             
+        }
+           let dx = h.x-k.x
+           let dy = h.y-k.y
+           let jarak = Math.sqrt(dx**2 + dy**2)
+           if(jarak<=50&&k.arah2=="unnor"){
+                if(strItem=="itemi"){
+                   if(bar.hp2>=5)
+                       bar.hp2-=5
+                   if(bar.hp2<=5){
+                      bar.cHp2="#EE5253"
+                      bar.hp--}
+                }else{
+                     bar.hp--
+                }
+                console.log(jarak)
+           }
+           
+        if(k.hpKe<=0){
+             this.kill++
+             this.point+=15
+                      score.innerHTML=`score : ${this.point}`
+             let ularr=new Audio("ular.m4a")
+             ularr.play()
+           const head = this.snake.body[0]
+          this.snake.isEat=true
+          this.snake.body.unshift({x:head.x,y:head.y})
+               this.snake.isEat=false
+                k.randomFood()
+                k.hpKe=20
+        }
+      }
+      isSnakeTouchUang(uang, jum){
+        const head=this.snake.body[0]
+        const food=uang
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          console.log("ternyata menyentuh koin")
+          if(bar.isUlti=="aktif"){
+               param3+=jum*10
+          }else{
+          param3+=jum}
+          coin.play()
+          localStorage.setItem("sss3",JSON.stringify(param3))
+          gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+          food.randomFood()
+        }
+      }
+      isSnakeTouchHarta(harta, jum,hartaAnimate){
+        const head=this.snake.body[0]
+        const food=harta[0]
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          console.log("ternyata menyentuh harta")
+          param3+=jum
+          food.hk-=2
+          if(food.hk<=0)
+             harta.splice(0,1)
+          coin.play()
+          localStorage.setItem("sss3",JSON.stringify(param3))
+          gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+          hartaAnimate.follow=false
+        }
+      }
+      isSnakeTouchHartaMario(harta, jum,hartaAnimate){
+        const head=this.snake
+        const food=harta[0]
+        if(head.x<food.x+food.size&&head.x+40>food.x&&head.y<food.y+food.size&&head.y+40>food.y){
+          console.log("ternyata menyentuh harta")
+          param3+=jum
+          food.hk-=0.01
+          if(food.hk<=0)
+             harta.splice(0,1)
+          coin.play()
+          localStorage.setItem("sss3",JSON.stringify(param3))
+          gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+          hartaAnimate.follow=false
+        }
+      }
+      isSnakeTouchBatu(batu){
+        const head=this.snake.body[0]
+        const food=batu[0]
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          console.log("ternyata menyentuh batu")
+          food.hk-=1.5
+          if(food.hk<=0){
+             batu.splice(0,1)
+             param3+=Math.floor(Math.random()*10)+1
+             coin.play()
+          }
+          batuAudio.play()
+          this.shake=true
+          localStorage.setItem("sss3",JSON.stringify(param3))
+          gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+        }
+      }
+      isSnakeTouchKey(key,no1,no2){
+        const head=this.snake.body[0]
+        const food=key
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          keyAudio.play()
+          console.log("ternyata menyentuh key")
+             this.key.splice(0,1)
+          this.wall.splice(no1,no2)
+        }
+      }
+      isSnakeTouchMahkota(mahkota,flag){
+        const head=this.snake.body[0]
+        const food=mahkota
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          mahkotaAudio.play()
+          console.log("ternyata menyentuh mahkota")
+             this.flag.push(flag)
+             this.point++
+             score.innerHTML=`Win streak ${this.point}`
+        }
+      }
+      isSnakeTouchFlag2(game,flag){
+        const head=this.snake
+        const food=game
+        if(head.x<food.x+food.size&&head.x+40>food.x&&head.y<food.y+food.size&&head.y+40>food.y){
+          mahkotaAudio.play()
+          console.log("ternyata menyentuh game")
+             this.flag2=flag
+        }
+      }
+      isSnakeTouchExit(exit){
+        const head=this.snake
+        const food=exit
+        if(head.x<food.x+food.size&&head.x+this.snake.size>food.x&&head.y<food.y+food.size&&head.y+this.snake.size>food.y){
+          
+          console.log("ternyata menyentuh exit")
+             window.location.reload()
+        }
+      }
+      isSnakeTouchInfo(info,isi){
+        const head=this.snake
+        const food=info
+        if(head.x<food.x+food.size&&head.x+40>food.x&&head.y<food.y+food.size&&head.y+40>food.y){
+          setTimeout(()=>{
+            infoMario.style.display="none"
+          },5000)
+          infoMario.style.display=""
+          infoMario.innerHTML=isi
+          infoMario.onclick=()=>{
+            infoMario.style.display="none"
+          }
+        }
+      }
+      isMusuhHitPlayer(target,skill,argu){
+        const head=target
+        const msh=skill
+        if(head.x<msh.x+80&&head.x+40>msh.x&&head.y<msh.y+80&&head.y+40>msh.y){
+          if(argu=="musuh")
+          this.snake.hpPlayer-=0.5
+          if(argu=="player")
+          this.musuh.hpMusuh-=0.5
+          console.log("musuhHitPlayer")
+          if(this.snake.hpPlayer<=0){
+            this.snake.gameOver=true
+            this.ucapan.style.display=""
+            this.ucapan.innerHTML="Kamu Kalah"
+          }
+          if(this.musuh.hpMusuh<=0){
+            this.musuh.x=-50
+            this.musuh.y=260
+            this.skillMusuh.x=-20
+            this.skillMusuh.y-=260
+            this.musuh.hpMusuh=50
+            this.point++
+            score.innerHTML=`kill ${this.point}`
+            
+            //this.ucapan.style.display=""
+            //this.ucapan.innerHTML="Kamu Menang"
+          }
+        }
+      }
+      isPlayerHitMusuh(musuh){
+        const head=this.snake
+        const msh=musuh
+        if(head.x<msh.x+80&&head.x+40>msh.x&&head.y<msh.y+80&&head.y+40>msh.y){
+          this.snake.hpPlayer-=1
+          console.log("musuhHitPlayer")
+          if(this.snake.hpPlayer<=0){
+            this.snake.gameOver=true
+            this.ucapan.style.display=""
+            this.ucapan.innerHTML="Kamu Kalah"
+          }
+        }
+      }
+      isSnakeTouchSoal(soal,a,b,c,d,param,poin){
+        const head=this.snake
+        const food=soal
+        if(head.x<food.x+food.size&&head.x+40>food.x&&head.y<food.y+food.size&&head.y+40>food.y){
+          let a1=Math.floor(Math.random()*a)+b
+          let b1=Math.floor(Math.random()*c)+d
+          wrapMario.style.display=""
+          let total;
+          let operator;
+          if(param=="tambah"){
+             total=a1+b1
+             operator="+"}
+          if(param=="kali"){
+             total=a1*b1
+             operator="×"}
+          if(param=="kurang"){
+             total=a1-b1
+             operator="-"}
+          papanMario.innerHTML=`Hasil dari ${a1} ${operator} ${b1}=`
+          kirimMario.onclick=()=>{
+            if(inptMario.value==total.toString()){
+              coin.play()
+              console.log("benar")
+            param3+=poin
+            localStorage.setItem("sss3",JSON.stringify(param3))
+            gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+            wrapMario.style.display="none"
+            inptMario.value=""
+          }else{ wrapMario.style.display="none" ;inptMario.value=""}
+          }
+          console.log(total)
+        }
+      }
+      isSnakeTouchWall(){
+        for(let i=0;i<this.wall.length;i++){
+             strItem=localStorage.getItem("itemUlarLwkjr")
+          let w=this.wall[i]
+          let s=this.snake.body[0]
+          if(s.x<w.x+w.width&&s.x+20>w.x&&s.y<w.y+w.height&&s.y+this.snake.size>w.y||this.snake.speed==0){
+            console.log("ini dia")
+            if(strItem=="itemf"){
+               if(strItem=="itemi"){
+               if(bar.hp2>=10&&bar.isHp=="putih"){
+                   for(let i=0;i<21;i++)
+                      bar.hp2--
+                 }
+                 if(bar.hp2<=5){
+                 bar.cHp2="#EE5253"
+                 bar.hp-=15
+                 }
+               }else{bar.hp-=15}
+            }else{
+                 if(strItem=="itemi"){
+                 if(bar.hp2>=10&&bar.isHp=="putih"){
+                 for(let i=0;i<21;i++)
+                 bar.hp2-=1.5
+                 }
+                 if(bar.hp2<=5){
+                 bar.cHp2="#EE5253"
+                 bar.hp-=30
+                 }
+                 }else{bar.hp-=30}
+            }
+            //mode mencari mahkota died
+            if(this.modeDes||this.modeDes2){
+                 this.snake.isGameOver()
+                 this.snake.isOver=true
+                 
+            }
+          }
+        }
+      }
+      isSnakeTouchWall2(){
+        for(let i=0;i<this.wall.length;i++){
+          let w=this.wall[i]
+          let sX=this.snake.x
+          let sY=this.snake.y
+          if(sX<w.x+w.width&&sX+40>w.x&&sY<w.y+w.height&&sY+40>w.y){
+            this.tanah=true
+            if(sX<w.x+40&&sY>w.y){
+               this.snake.x=w.x-40
+               this.snake.bgY=620
+            }
+            if(sY<w.y)
+               this.snake.y=w.y-40
+          }
+        }
+      }
+      isFoodTouchWall(foodZ){
+        for(let i=0;i<this.wall.length;i++){
+          let w=this.wall[i]
+          let f=foodZ
+          
+          if(f.x<w.x+w.width&&f.x+f.size>w.x&&f.y<w.y+w.height&&f.y+f.size>w.y){
+            if(f.x<=w.x+f.size&&f.x+f.size>w.x){
+                f.randomX*=-1}
+            if(f.y<=w.y+w.height&&f.y+f.size>w.y){
+                f.randomY*=-1}
+          }
+        }
+      }
+      isLvUp(){
+        if(this.flag.length==0){
+          this.wall=[]
+        }
+        else if(this.point==100&&this.flag.length==1){
+          
+           param.push("lvv2")
+           localStorage.setItem("sss",JSON.stringify(param))
+      
+         if(param.find(f=>f=="lvv2"))
+             lv2.style.display=""
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 2"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 2"
+           setTimeout(()=>{
+             this.snake.body=[{x:0,y:0}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(40,150,200,2,"lime"),new
+             Wall(80,150,2,150,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==2){
+            param.push("lvv3")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 3"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 3"
+           setTimeout(()=>{
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             
+             this.wall=[new Wall(40,150,200,2,"lime"),new Wall(0,80,240,2,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==3){
+          param.push("lvv4")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 4"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 4"
+           for(let i=0;i<4;i++)
+           this.koinnn.push(new Food())
+           setTimeout(()=>{
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(40,150,200,2,"lime"),new
+             Wall(40,150,2,100,"lime"),new Wall(150,0,2,150,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==4){
+            param.push("lvv5")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 5"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 5"
+           setTimeout(()=>{
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(150,0,2,260,"lime"),new Wall(0,150,260,4,"lime"),new Wall(150,0,2,150,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==5){
+            param.push("lvv6")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 5"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 5"
+           setTimeout(()=>{
+             this.snake.ubahArah=null
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(40,0,2,250,"lime"),new
+             Wall(150,50,2,260,"lime"),new Wall(260,0,2,250,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==6){
+            param.push("lvv7")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 6"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 6"
+           setTimeout(()=>{
+             this.snake.ubahArah=null
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(0,50,140,2,"lime"),new
+             Wall(180,50,120,2,"lime"),new Wall(80,240,190,2,"lime"),new
+             Wall(0,150,160,2,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==7){
+            param.push("lvv8")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 7"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 7"
+           setTimeout(()=>{
+             this.snake.ubahArah=null
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(60,120,240,2,"lime"),new
+             Wall(60,120,2,120,"lime"),new Wall(120,240,180,2,"lime"),new
+             Wall(0,150,160,2,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==8){
+            param.push("lvv9")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 8"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 8"
+           setTimeout(()=>{
+             this.snake.ubahArah=null
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(60,150,40,2,"lime"),new
+             Wall(140,150,40,2,"lime"),new Wall(230,150,40,2,"lime")]
+           },2000)}
+        else if(this.point==100&&this.flag.length==9){
+             
+            param.push("stage2")
+           localStorage.setItem("sss",JSON.stringify(param))
+           this.ucapan.style="background:linear-gradient(to right,black,lime)"
+           this.ucapan.innerHTML="Selamat Naik Lv 9"
+            this.ucapan.style.display=""
+           this.snake.speed=0.001
+           this.flag.push(".")
+           lv.innerHTML="LV 9"
+           setTimeout(()=>{
+             this.snake.ubahArah=null
+             this.snake.body=[{x:280,y:280}]
+             this.ucapan.style.display="none"
+             this.snake.speed=7
+             this.point=0
+             score.innerHTML=`score : ${this.point}`
+             this.wall=[new Wall(150,0,2,100,"lime"),new
+             Wall(150,150,2,150,"lime"),new Wall(0,150,300,2,"lime"),new
+             Wall(75,190,2,150),new Wall(85,45,100,2),new Wall(75,200,40,2),new
+             Wall(40,150,2,60)]
+           },2000)}
+      }
+      addBac(item,x,y,font,opicity){
+        ctx.save()
+        ctx.beginPath()
+        ctx.textAlign="center"
+        ctx.font=font
+        ctx.globalAlpha=opicity
+        ctx.fillText(item,x,y)
+        ctx.restore()
+      }
+      
+      addTrap(flag,enemy,item,x,y){
+        if(this.flag.length==flag){
+          setTimeout(()=>{
+            const msh=enemy
+          msh.x=x
+          msh.y=y
+          if(!this.snake.isOver)
+          msh.draw2(item)
+          },2000)
+          
+        }
+      }
+      tampilan(){
+       if(this.flag.length==1)
+          this.addBac("🌌",150,260,"300px Arial",0.7)
+       if(this.flag.length==2)
+          this.addBac("🏜",150,260,"450px Arial",0.7)
+       if(this.flag.length==3)
+          this.addBac("🏕",80,265,"200px Arial",0.4)
+       if(this.flag.length==4)
+          this.addBac("🛤",150,240,"300px Arial",0.7)
+       if(this.flag.length==5)
+          this.addBac("🌇",150,260,"300px Arial",0.7)
+       if(this.flag.length==6)
+          this.addBac("🏞",150,260,"300px Arial",0.7)
+       if(this.flag.length==7)
+          this.addBac("🏖",150,260,"300px Arial",0.5)
+       if(this.flag.length==8)
+          this.addBac("🌄",150,260,"300px Arial",0.8)
+       if(this.flag.length==9)
+          this.addBac("🌠",-30,260,"900px Arial",0.8)
+       if(this.flag.length==10)
+          this.addBac("⏳️",150,260,"150px Arial",0.8)
+          let img1= new Image()
+          img1.src="jembatan.jpg"
+       if(this.flag.length==22)
+          ctx.drawImage(img1,0,0,300,300)
+      }
+      modeDestroy(){
+        if(this.snake.isOver&&this.modeDes){
+            
+          let win=this.point
+          
+                   
+          if(nama2=="")
+             nama2="Kosong"
+          let dataPlayer={nama2,win}
+          param2b.push(dataPlayer)
+          localStorage.setItem("sss2b",JSON.stringify(param2b))
+        }
+        if(this.flag.length==21){
+          lv.innerHTML="TAHAP 1"
+          isiInfo2.innerHTML="Ambil kunci untuk membuka pintu/garis berwarna biru"
+          score.innerHTML=`Win streak ${this.point}`
+           this.kesper.x=100
+           this.kesper.y=210
+           this.snake.speed=6
+           this.wall=[new Wall(150,0,2,300,"brown"),new Wall(0,120,300,2),new
+            Wall(150,200,150,2),new Wall(75,120,2,75),new
+            Wall(270,120,2,80,"aqua")]
+            this.flag.push(".")
+        }
+        if(this.flag.length==22){
+          this.key.forEach(key=>{
+            key.x=90
+            key.y=145
+            key.draw2("🔑")
+            this.isSnakeTouchKey(key,4,1)
+          })
+          
+          this.mahkota.x=180
+          this.mahkota.y=160
+          this.mahkota.draw2("👑")
+          this.isSnakeTouchMahkota(this.mahkota)
+          this.batu.forEach(h=>{
+            let x=220
+            let y=270
+            if(this.shake){
+               x=230
+               y=280
+               this.shake=false
+               
+            }
+            h.drawGold("🪨",x,y)
+          })
+          if(this.batu.length!==0)
+          this.isSnakeTouchBatu(this.batu)
+          }
+          
+        if(this.flag.length==23){
+          this.snake.ubahArah=null
+          lv.innerHTML="Tahap 2"
+          if(this.key.length==0)
+             this.key.push(new Food())
+          if(this.batu.length==0)
+          this.batu.push(new Food())
+           this.kesper.x=100
+           this.kesper.y=210
+           this.snake.speed=6
+           this.wall=[new Wall(150,0,2,300,"brown"),new Wall(0,120,300,2),new
+            Wall(150,200,150,2),new Wall(75,120,2,75),new
+            Wall(0,250,80,2),new Wall(75,200,40,2),new Wall(150,70,150,2),new
+            Wall(270,0,2,70,"aqua"),new Wall(150,20,150,2,"brown")]
+            this.flag.push(".")
+        }
+        if(this.flag.length==24){
+          this.key.forEach(key=>{
+            key.x=95
+            key.y=145
+            key.draw2("🔑")
+            this.isSnakeTouchKey(key,7,1)
+          })
+          
+          this.mahkota.x=190
+          this.mahkota.y=35
+          this.mahkota.draw2("👑")
+          this.isSnakeTouchMahkota(this.mahkota)
+          this.batu.forEach(h=>{
+            let x=75
+            let y=75
+            if(this.shake){
+               x=85
+               y=85
+               this.shake=false
+               
+            }
+            h.drawGold("🪨",x,y)
+          })
+          if(this.batu.length!==0)
+          this.isSnakeTouchBatu(this.batu)
+          }
+        if(this.flag.length==25){
+          this.snake.ubahArah=null
+          lv.innerHTML="TAHAP 3"
+          if(this.batu.length==0)
+             this.batu.push(new Food())
+          if(this.key.length==0)
+             this.key.push(new Food())
+           
+           this.kesper.x=190
+           this.kesper.y=275
+           this.snake.speed=6
+           this.wall=[new Wall(150,0,2,300,"brown"),new Wall(0,120,300,2),new
+            Wall(150,200,150,2),new Wall(75,120,2,75),new
+            Wall(0,250,65,2),new Wall(150,20,150,2),new Wall(75,200,70,2,"aqua")]
+            this.flag.push(".")
+        }
+        if(this.flag.length==26){
+          this.key.forEach(key=>{
+            key.x=180
+            key.y=265
+            key.draw2("🔑")
+            this.isSnakeTouchKey(key,6,1)
+          })
+          
+          this.kesper.draw2("👻")
+          this.kesper.move()
+          this.isSnakeTouchEnemy(this.kesper)
+          this.mahkota.x=95
+          this.mahkota.y=160
+          this.mahkota.draw2("👑")
+          this.isSnakeTouchMahkota(this.mahkota)
+          this.harta2.forEach(h=>{
+            let x=240
+            let y=185
+            if(this.hartaAnimate2.y<=0)
+               this.hartaAnimate2.follow=true
+               this.hartaAnimate2.y-=30
+               this.hartaAnimate2.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🎁",x,y)
+            
+          })
+          if(this.harta2.length!==0)
+          this.isSnakeTouchHarta(this.harta2,1,this.hartaAnimate2)
+          }
+        if(this.flag.length==27){
+          this.snake.ubahArah=null
+          lv.innerHTML="TAHAP 4"
+          if(this.batu.length==0)
+          this.batu.push(new Food())
+          if(this.key.length==0)
+          this.key.push(new Food())
+           this.snake.speed=6
+           this.wall=[new Wall(150,0,2,300,"brown"),new Wall(0,120,300,2),new
+            Wall(150,200,150,2),new Wall(75,120,2,75),new
+            Wall(0,250,80,2),new Wall(75,200,40,2),new
+            Wall(150,80,150,2),new Wall(80,250,2,50),new Wall(80,0,2,80),new
+            Wall(40,40,2,80),new Wall(280,80,2,40,"aqua")]
+            this.flag.push(".")
+        }
+        if(this.flag.length==28){
+          this.key.forEach(key=>{
+            key.x=50
+            key.y=160
+            key.draw2("🔑")
+            this.isSnakeTouchKey(key,10,1)
+          })
+          
+          this.mahkota.x=190
+          this.mahkota.y=100
+          this.mahkota.draw2("👑")
+          this.isSnakeTouchMahkota(this.mahkota)
+          this.batu.forEach(h=>{
+            let x=260
+            let y=55
+            if(this.shake){
+               x=265
+               y=60
+               this.shake=false
+               
+            }
+            h.drawGold("🪨",x,y)
+          })
+          if(this.batu.length!==0)
+          this.isSnakeTouchBatu(this.batu)
+          this.harta5.forEach(h=>{
+            let x=40
+            let y=280
+            if(this.hartaAnimate5.y<=0)
+               this.hartaAnimate5.follow=true
+               this.hartaAnimate5.y-=30
+               this.hartaAnimate5.drawAnimate("orange","+$1",x,y)
+            h.drawGold("💰",x,y)
+            
+          })
+          if(this.harta5.length!==0)
+          this.isSnakeTouchHarta(this.harta5,5,this.hartaAnimate5)
+          }
+          if(this.flag.length==29){
+          this.snake.ubahArah=null
+          this.flag.length=0
+          if(this.batu.length==0)
+          this.batu.push(new Food())
+          if(this.key.length==0)
+          this.key.push(new Food())
+           this.snake.speed=6
+               for(let i=0;i<=20;i++)
+                   this.flag.push(".")
+             
+          }
+      }
+      modeTime(){
+        if(nama3=="")
+             nama3="Kosong"
+        if(this.flag.length==51){
+          this.snake.body[0].x=10
+          this.snake.body[0].y=10
+          this.flag.push(".")
+          this.wall=[new Wall(0,0,300,2,"red"),new Wall(0,0,2,120),new Wall(0,40,260,2),new Wall(40,80,260,2),new
+          Wall(0,120,260,2),new Wall(260,120,2,140),new Wall(40,260,223,2),new
+          Wall(0,220,220,2),new Wall(40,180,223,2),new Wall(0,150,220,2),new
+          Wall(0,150,2,150),new Wall(298,0,2,300)]
+          if(this.koinnn.length!==14){
+          for(let i=0;i<14;i++)
+          this.koinnn.push(new Food())}
+        }
+        if(this.flag.length==52){
+          this.mahkota.x=30
+          this.mahkota.y=135
+          lv.innerHTML="TAHAP 1"
+          this.mahkota.draw2("👑")
+          this.isSnakeTouchMahkota(this.mahkota)
+          
+          
+          this.koinnn.forEach((k,i)=>{
+            k.x=40+i*15
+            k.y=240
+            k.draw("orange","+$1")
+            this.isSnakeTouchUang(k,1)
+          })
+          
+          this.harta.forEach(h=>{
+            let x=60
+            let y=70
+            if(this.hartaAnimate.y<=0)
+               this.hartaAnimate.follow=true
+               this.hartaAnimate.y-=20
+               this.hartaAnimate.drawAnimate("orange","+$1",x,y)
+            h.drawGold("📦",x,y)
+          })
+          if(this.harta.length!==0)
+          this.isSnakeTouchHarta(this.harta,0.5,this.hartaAnimate)
+          
+          this.harta2.forEach(h=>{
+            let x=100
+            let y=70
+            if(this.hartaAnimate2.y<=0)
+               this.hartaAnimate2.follow=true
+               this.hartaAnimate2.y-=20
+               this.hartaAnimate2.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🎁",x,y)
+            
+          })
+          if(this.harta2.length!==0)
+          this.isSnakeTouchHarta(this.harta2,1,this.hartaAnimate2)
+          
+          this.harta5.forEach(h=>{
+            let x=140
+            let y=70
+            if(this.hartaAnimate5.y<=0)
+               this.hartaAnimate5.follow=true
+               this.hartaAnimate5.y-=20
+               this.hartaAnimate5.drawAnimate("orange","+$1",x,y)
+            h.drawGold("💰",x,y)
+            
+          })
+          if(this.harta5.length!==0)
+          this.isSnakeTouchHarta(this.harta5,5,this.hartaAnimate5)
+          
+          this.harta6.forEach(h=>{
+            let x=180
+            let y=70
+            if(this.hartaAnimate6.y<=0)
+               this.hartaAnimate6.follow=true
+               this.hartaAnimate6.y-=20
+               this.hartaAnimate6.drawAnimate("orange","+$1",x,y-4)
+            h.drawGold("💎",x,y)
+            
+          })
+          if(this.harta6.length!==0)
+          this.isSnakeTouchHarta(this.harta6,10,this.hartaAnimate6)
+        }
+        if(this.flag.length==53){
+          this.snake.ubahArah=null
+          this.flag.push(".")
+        }
+        if(this.flag.length==54){
+          lv.innerHTML="TAHAP 2"
+          this.mahkota.x=20
+          this.mahkota.y=20
+          this.mahkota.draw2("👑")
+          this.isSnakeTouchMahkota(this.mahkota)
+          
+          this.koinnn.forEach((k,i)=>{
+            k.x=50+i*15
+            k.y=20
+            k.draw("orange","+$1")
+            this.isSnakeTouchUang(k,1)
+          })
+          
+          this.harta.forEach(h=>{
+            let x=60
+            let y=140
+            if(this.hartaAnimate.y<=0)
+               this.hartaAnimate.follow=true
+               this.hartaAnimate.y-=20
+               this.hartaAnimate.drawAnimate("orange","+$1",x,y)
+            h.drawGold("📦",x,y)
+          })
+          if(this.harta.length!==0)
+          this.isSnakeTouchHarta(this.harta,0.5,this.hartaAnimate)
+          
+          this.harta2.forEach(h=>{
+            let x=100
+            let y=140
+            if(this.hartaAnimate2.y<=0)
+               this.hartaAnimate2.follow=true
+               this.hartaAnimate2.y-=20
+               this.hartaAnimate2.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🎁",x,y)
+            
+          })
+          if(this.harta2.length!==0)
+          this.isSnakeTouchHarta(this.harta2,1,this.hartaAnimate2)
+          
+          this.harta5.forEach(h=>{
+            let x=140
+            let y=140
+            if(this.hartaAnimate5.y<=0)
+               this.hartaAnimate5.follow=true
+               this.hartaAnimate5.y-=20
+               this.hartaAnimate5.drawAnimate("orange","+$1",x,y)
+            h.drawGold("💰",x,y)
+            
+          })
+          if(this.harta5.length!==0)
+          this.isSnakeTouchHarta(this.harta5,5,this.hartaAnimate5)
+          
+          this.harta6.forEach(h=>{
+            let x=180
+            let y=140
+            if(this.hartaAnimate6.y<=0)
+               this.hartaAnimate6.follow=true
+               this.hartaAnimate6.y-=20
+               this.hartaAnimate6.drawAnimate("orange","+$1",x,y-4)
+            h.drawGold("💎",x,y)
+            
+          })
+          if(this.harta6.length!==0)
+          this.isSnakeTouchHarta(this.harta6,10,this.hartaAnimate6)
+        }
+        if(this.flag.length==55){
+          this.snake.ubahArah=null
+          this.flag.length=0
+          if(this.batu.length==0)
+          this.batu.push(new Food())
+          if(this.key.length==0)
+          this.key.push(new Food())
+           this.snake.speed=6
+               for(let i=0;i<=50;i++)
+                   this.flag.push(".")
+             
+          }
+      }
+      marioFlag1(){
+        if(this.flag2=="1"){
+            this.soal.push(new Food())
+            this.soal2.push(new Food())
+            this.soal3.push(new Food())
+            this.soal4.push(new Food())
+            this.flag2="2"
+          }
+          if(!this.snake.gameOver&&isGameRun2&&this.flag2=="2"){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            let bac=new Image()
+            bac.src="Malam.jpeg"
+            
+            ctx.drawImage(bac,-this.snake.bgY,0,1500,300)
+            this.snake.stopScreen()
+            this.snake.stopScreenBgY()
+            this.wall=[new Wall(40-this.snake.bgY,250,200,5,"black"),new
+            Wall(40-this.snake.bgY,270,5,50),new
+            Wall(280-this.snake.bgY,220,50,5),new
+            Wall(360-this.snake.bgY,150,100,5),new
+            Wall(280-this.snake.bgY,100,50,5),new
+            Wall(80-this.snake.bgY,60,100,5),new
+            Wall(500-this.snake.bgY,80,100,5),new
+            Wall(580-this.snake.bgY,60,100,5),new
+            Wall(720-this.snake.bgY,140,100,5),new
+            Wall(770-this.snake.bgY,140,5,200),new
+            Wall(870-this.snake.bgY,250,50,5),new
+            Wall(970-this.snake.bgY,180,50,5),new
+            Wall(1080-this.snake.bgY,130,100,5),new
+            Wall(800-this.snake.bgY,50,250,5),new
+            Wall(1080-this.snake.bgY,20,500,5),new
+            Wall(1200-this.snake.bgY,200,150,5),new
+            Wall(0-this.snake.bgY,100,80,5)]
+            this.isSnakeTouchWall2()
+            this.wall.forEach(w=>w.draw())
+            
+            if(this.snake.index>=8||this.snake.index<0)
+               this.snake.index=0
+            this.snake.speed=10
+  
+            if(this.snake.jump&&this.tanah){
+              this.snake.drawSpriteJump()
+              this.snake.y-=20
+              if(this.snake.y<=this.snake.startJump-100)
+                 this.snake.jump=false
+            }else{
+            this.snake.drawSprite2()
+            this.snake.y+=5
+            }
+            if(this.snake.y>=260){
+               this.snake.y=260
+               this.tanah=true
+            }
+            
+            this.soal.forEach(soal=>{
+              soal.x=150-this.snake.bgY
+              soal.y=290
+              soal.draw2("📗")
+              this.isSnakeTouchSoal(soal,111,11,111,11,"tambah",10)
+            })
+            this.soal2.forEach(soal=>{
+              soal.x=640-this.snake.bgY
+              soal.y=200
+              soal.draw2("📕")
+              this.isSnakeTouchSoal(soal,10,2,10,2,"kali",10)
+            })
+            this.soal3.forEach(soal=>{
+              soal.x=1000-this.snake.bgY
+              soal.y=35
+              soal.draw2("📘")
+              this.isSnakeTouchSoal(soal,100,22,21,1,"kurang",10)
+            })
+            this.soal4.forEach(soal=>{
+              soal.x=800-this.snake.bgY
+              soal.y=290
+              soal.draw2("📚")
+              this.isSnakeTouchSoal(soal,1000,21,1000,21,"tambah",15)
+            })
+            this.exit.x=320-this.snake.bgY
+            this.exit.y=240
+            this.exit.draw2("BACK")
+            this.isSnakeTouchExit(this.exit)
+            
+            this.info.forEach(info=>{
+              info.x=1300-this.snake.bgY
+              info.y=170
+              info.draw2("🔁")
+              this.isSnakeTouchInfo(info,"game ini dibuat pada tanggal 10 januari 2025 oleh Lucky wahyu")
+            })
+            this.enterMode.forEach(mode=>{
+              mode.x=60-this.snake.bgY
+              mode.y=90
+              mode.draw2("🍎")
+              this.isSnakeTouchFlag2(mode,"3")
+            })
+            
+            this.enterMode2.forEach(mode=>{
+              mode.x=950-this.snake.bgY
+              mode.y=80
+              mode.draw2("⛩️")
+              this.isSnakeTouchFlag2(mode,"5")
+            })
+          }
+      }
+      marioFlag3(){
+        if(this.flag2=="3"){
+          this.snake.x=150
+          this.snake.y=230
+          this.flag2="4"
+            
+        }
+        if(this.flag2=="4"&&!this.snake.gameOver){
+          ctx.clearRect(0,0,canvas.width,canvas.height)
+          let bac=new Image()
+          bac.src="pohon2d.jpeg"
+          ctx.drawImage(bac,0,-700+this.down,300,1000)
+          this.isSnakeTouchWall2()
+          
+          this.wall=[new Wall(40,240+this.down,200,5,"brown"),new
+          Wall(0,120+this.down,200,5),new
+          Wall(200,70+this.down,200,5),new
+          Wall(200,-40+this.down,200,5),new
+          Wall(80,-100+this.down,50,5),new
+          Wall(150,-200+this.down,50,5),new
+          Wall(20,-300+this.down,100,5),new
+          Wall(120,-400+this.down,150,5),new
+          Wall(200,-500+this.down,50,5),new
+          Wall(100,-600+this.down,50,5),new
+          Wall(0,-440+this.down,50,5)]
+            this.wall.forEach(w=>w.draw())
+            this.down+=1
+            this.point++
+            if(this.point>=500)
+                this.down+=1.5
+            if(this.point>=1000)
+                this.down+=1.7
+            score.innerHTML=`Durasi ${this.point}`
+            if(this.down>=720)
+               this.down=0
+            this.snake.drawSprite()
+            this.snake.speed=10
+            if(this.snake.index>=8||this.snake.index<0)
+               this.snake.index=0
+             
+            if(this.snake.jump&&this.tanah){
+              this.snake.y-=20
+              if(this.snake.y<=this.snake.startJump-100)
+                 this.snake.jump=false
+            }else{
+            this.snake.y+=5
+            if(this.point>=1000){
+               this.snake.y+=8
+               jumping.disabled=false
+            }
+            }
+            if(this.snake.y>=280){
+               this.snake.y=280
+               this.snake.gameOver=true
+               this.ucapan.style.display=""
+               this.ucapan.innerHTML="Yah Kalah"
+               backMario.style.display=""
+               this.snake.x=150
+               this.snake.y=230
+               this.down=0
+               this.point=0
+               score.innerHTML="🙁🙁🙁"
+            }
+            
+            this.harta4.forEach(h=>{
+            let x=30
+            let y=110+this.down
+            if(this.hartaAnimate4.y<=0)
+               this.hartaAnimate4.follow=true
+               this.hartaAnimate4.y-=30
+               this.hartaAnimate4.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🍎",x,y)
+            
+          })
+          this.isSnakeTouchHartaMario(this.harta4,0.1,this.hartaAnimate4)
+          
+          this.harta.forEach(h=>{
+            let x=110
+            let y=-110+this.down
+            if(this.hartaAnimate.y<=100)
+               this.hartaAnimate.follow=true
+               this.hartaAnimate.y-=30
+               this.hartaAnimate.drawAnimate("orange","+$1",x,y+1)
+            h.drawGold("🍊",x,y)
+          })
+          
+          this.isSnakeTouchHartaMario(this.harta,0.1,this.hartaAnimate)
+          
+          this.harta2.forEach(h=>{
+            let x=24
+            let y=-460+this.down
+            if(this.hartaAnimate2.y<=100)
+               this.hartaAnimate2.follow=true
+               this.hartaAnimate2.y-=30
+               this.hartaAnimate2.drawAnimate("orange","+$1",x,y+0.5)
+            h.drawGold("🍈",x,y)
+          })
+          
+          this.isSnakeTouchHartaMario(this.harta2,1,this.hartaAnimate2)
+          
+        }
+      }
+      marioFlag5(){
+        if(this.flag2=="5"){
+          this.musuh.x=150
+          this.musuh.y=260
+          this.flag2="6"
+        }
+        if(this.flag2=="6"&&!this.snake.gameOver){
+           ctx.clearRect(0,0,canvas.width,canvas.height)
+           
+           
+           if(this.musuh.x<this.snake.x){
+              this.musuh.indexM++
+              this.musuh.x+=0.5
+              this.musuh.scaleM=1}
+           if(this.musuh.x>this.snake.x){
+              this.musuh.indexM++
+              this.musuh.x-=0.5
+              this.musuh.scaleM=-1}
+           
+           let jarakX=this.musuh.x-this.snake.x
+           let jarakY=this.musuh.y-this.snake.y
+           let
+           jarakRadius=Math.hypot(this.musuh.x-this.snake.x,this.musuh.y-this.snake.y)
+           if(jarakX<50&&jarakY<50){
+             if(this.musuh.scaleM==1){
+              this.skillMusuh.isAttack(this.musuh.x,this.musuh.y,10,80,80)
+              this.skillMusuh.drawImg(-1,-this.skillMusuh.x-80)
+             }else{
+               this.skillMusuh.isAttack(this.musuh.x,this.musuh.y,-10,80,80)
+               this.skillMusuh.drawImg(1,this.skillMusuh.x)
+             }
+           }
+           ///zsa
+           if(jarakX<100&&jarakY<100){
+             this.skillPlayer1.frameSkillPlayer++
+             if(this.snake.scale==1){
+              this.skillPlayer1.isAttack(this.snake.x+40,this.snake.y,10,80,80)
+              this.skillPlayer1.drawImgArray(-1,-this.skillPlayer1.x-80)
+             }else{
+               this.skillPlayer1.frameSkillPlayer++
+               this.skillPlayer1.isAttack(this.snake.x-40,this.snake.y,-10,80,80)
+               this.skillPlayer1.drawImgArray(1,this.skillPlayer1.x-40)
+             }
+           }
+           
+           this.isMusuhHitPlayer(this.snake,this.skillMusuh,"musuh")
+           this.isMusuhHitPlayer(this.musuh,this.skillPlayer1,"player")
+           
+           if(this.musuh.indexM>=8||this.musuh.indexM<0)
+               this.musuh.indexM=0
+           this.musuh.drawSprite()
+           this.wall=[new Wall(60-this.snake.bgY,180,200,5,"white")]
+           this.isSnakeTouchWall2()
+            this.wall.forEach(w=>w.draw())
+            
+            if(this.snake.index>=8||this.snake.index<0)
+               this.snake.index=0
+            this.snake.speed=10
+  
+            if(this.snake.jump&&this.tanah){
+              this.snake.drawSpriteJump()
+              this.snake.y-=20
+              if(this.snake.y<=this.snake.startJump-100)
+                 this.snake.jump=false
+            }else{
+            this.snake.drawSprite2()
+            this.snake.y+=5
+            }
+            if(this.snake.y>=260){
+               this.snake.y=260
+               this.tanah=true
+            }
+        }
+      }
+      fpsEksekusi(){
+        this.ucapan.style.display="none"
+        setInterval(()=>{
+          if(this.flag.length>=1&&this.flag.length<=10){
+               if(strItem=="itemi"&&this.snake.speed!==-3&&!this.food5.isBurn){
+             if(bar.hp2<=110)
+             bar.hp2+=0.5
+             bar.cHp2="white"
+          }
+          if(strItem!=="itemi"){
+               bar.hp2=0
+          }
+          }
+          if(this.flag.length>=51&&this.flag.length<=55){
+               if(strItem=="itemi"&&this.snake.speed!==-3&&!this.food5.isBurn){
+             if(bar.hp2<=110)
+             bar.hp2+=0.5
+             bar.cHp2="white"
+          }
+          if(strItem!=="itemi"){
+               bar.hp2=0
+          }
+          }
+          this.marioFlag1()
+          this.marioFlag3()
+          this.marioFlag5()
+           if(bar.hp<=0){
+               this.snake.isOver=true
+            }
+            if(!this.modeDes&&!this.modeDes2){
+            this.snake.isGameOver(this.kill)}else{
+                 this.snake.isGameOver(this.modeDes||this.modeDes2)
+            }
+          //navbar
+          if(!this.snake.gameOver&&isGameRun){
+            strItem=localStorage.getItem("itemUlarLwkjr")
+          ctx.clearRect(0,0,canvas.width,canvas.height)
+          ctx2.clearRect(0,0,canvas.width,canvas.height)
+          //bar kill dan length
+     if(!this.modeDes&&!this.modeDes2){
+          let bgGradient = ctx.createLinearGradient(175, 5, 175, 35);
+           bgGradient.addColorStop(0, "#000000"); // Black
+           bgGradient.addColorStop(1, "#1a1a2e"); // Dark bluish
+
+          // Draw background rectangle with white border
+          ctx.fillStyle = bgGradient;
+          ctx.strokeStyle = "#fff"; // White border color
+          ctx.lineWidth = 0.5; // Border thickness
+          ctx.fillRect(140, 5, 155, 25);
+          ctx.strokeRect(140, 5, 155, 25); // This adds the border
+
+           // Draw text
+           ctx.fillStyle = "#eee";
+           ctx.font = "16px Arial";
+           ctx.fillText(`kill : ${this.kill}`, 175, 22);
+           ctx.fillText(`length : ${this.snake.body.length}`, 250, 22);
+           }
+          
+          if(strItem=="itema")
+              bar.itemi="itema.jpg"
+          if(strItem=="itemb")
+              bar.itemi="itemb.jpg"
+          if(strItem=="itemc")
+              bar.itemi="itemc.jpg"
+          if(strItem=="itemd")
+              bar.itemi="itemd.jpg"
+          if(strItem=="iteme")
+              bar.itemi="iteme.jpg"
+          if(strItem=="itemf")
+              bar.itemi="itemf.jpg"
+          if(strItem=="itemg")
+              bar.itemi="itemg.jpg"
+          if(strItem=="itemh")
+              bar.itemi="itemh.jpg"
+          if(strItem=="itemi")
+              bar.itemi="itemi.jpg"
+          if(bar.mana>=75&&bar.isUlti=="nonAktif")
+             bar.styleMana="green"
+          bar.draw()
+          bar.draw2()
+          if(bar.mana>=0&&bar.isUlti=="aktif"){
+             const gra=ctx2.createLinearGradient(0,0,canvas2.width,0)
+             gra.addColorStop(0,"lime")
+             gra.addColorStop(1,"blue")
+             bar.styleMana=gra
+             if(strItem=="iteme"){
+               bar.mana-=0.7
+             }else{
+                  bar.mana--
+             }
+             if(strItem=="itemd"){
+                if(bar.hp<=110)
+                   bar.hp+=0.5
+                   }else{
+                if(bar.hp<=110)
+                   bar.hp+=0.1
+                   }
+             this.snake.speed=11
+          }
+          if(bar.mana<=-1||bar.mana<=-0.5&&bar.isUlti=="aktif"){
+               
+               bar.styleMana="#0984E3"
+               this.snake.speed=7
+               bar.isUlti="nonAktif"
+          }
+           //itmhp
+          if(this.flag.length==0||this.flag.length==1||this.flag.length==2){
+               strItem=localStorage.getItem("itemUlarLwkjr")
+               if(strItem=="itemg"){
+               if(bar.mana<=110&&bar.isUlti=="nonAktif")
+               bar.mana+=0.5
+          }
+          if(strItem=="itemh"){
+               if(bar.hp<=110&&bar.isUlti=="nonAktif")
+               bar.hp+=0.3
+          }
+     
+          if(strItem=="itemi"&&this.snake.speed!==-3&&!this.food5.isBurn){
+             if(bar.hp2<=110)
+             bar.hp2+=0.5
+             bar.cHp2="white"
+          }
+          if(strItem!=="itemi"){
+               bar.hp2=0
+          }
+     }
+          this.tampilan()
+          this.wall.forEach(w=>w.draw())
+          this.isSnakeTouchWall()
+          this.isFoodTouchWall(this.food)
+          this.isFoodTouchWall(this.food2)
+          this.isFoodTouchWall(this.food3)
+          this.isFoodTouchWall(this.food4)
+          this.isFoodTouchWall(this.kesper)
+          if(!this.modeDes&&!this.modeDes2){
+          if(this.flag.length!==0)
+          this.isSnakeEatFood(this.food,-10,7)
+          if(this.flag.length!==0)
+          this.isSnakeEatFood(this.food2,10,7)
+          if(this.flag.length!==0)
+          this.isSnakeEatFood(this.food3,5,7)
+          if(this.flag.length!==0)
+          this.isSnakeEatFood(this.food4,-5,7)}
+          if(this.flag.length==4){
+            
+           this.koinnn.forEach(k=>{
+             k.draw("orange","+$1")
+             k.move()
+             this.isSnakeTouchUang(k,1)
+           })
+          }
+          if(this.flag.length==9||this.flag.length==0){
+            if(this.flag.length==0)
+               if(!this.stop)
+               this.jamur.move()
+            this.jamur.draw2("☠️")
+            this.isSnakeEatFood(this.jamur,0,-3)
+            if(this.snake.speed==-3){
+                 bar.itemd="☠️"
+          }else{bar.itemd=""}
+            if(strItem=="itemc"){
+               if(this.snake.speed==-3)
+                   bar.hp-=0.5
+            }else{
+                 if(strItem=="itemi"){
+                 if(this.snake.speed==-3){
+                   if(bar.hp2>=0&&bar.isHp=="putih")
+                   bar.hp2--
+                   if(bar.hp2<=0)
+                      bar.isHp="merah"
+                      console.log("hay")
+                  if(bar.hp>=0&&bar.isHp=="merah")
+                      bar.hp--
+                 }
+                 }else{
+                      if(this.snake.speed==-3){
+                      if(bar.hp>=0)
+                      bar.hp--}
+                 }
+            }
+            
+            
+          }
+          if(this.flag.length==5||this.flag.length==9){
+          
+          this.isSnakeTouchEnemy(this.kesper)
+          if(!this.stop)
+          this.kesper.speed=2
+          if(this.stop)
+          this.kesper.speed=0
+          this.kesper.draw2("👻")
+          this.kesper.move()
+          }
+          if(this.flag.length==8||this.flag.length==9){
+          this.isSnakeTouchEnemy(this.burung)
+          if(!this.stop)
+          this.burung.speed=5
+          if(this.stop)
+          this.burung.speed=0
+          this.burung.draw2("🦅")
+          this.burung.move()
+          }
+          if(this.flag.length==2){
+          this.isSnakeTouchEnemy(this.kaktus)
+          
+          this.addTrap(2,this.kaktus,"🌵",140,260)
+          }
+          this.snake.teleportasi()
+          this.snake.move()
+          //itm1
+          if(this.flag.length==0&&!this.modeDes&&!this.modeDes2||this.flag.length==9||this.flag.length==10||this.flag.length==4||this.flag.length==3||this.flag.length==8){
+            strItem = localStorage.getItem("itemUlarLwkjr")
+            if(this.flag.length==9||this.flag.length==10||this.flag.length==4
+            ||this.flag.length==3||this.flag.length==8){
+                 isiInfo2.innerHTML="Raih point 100 pas untuk naik LV<br>Semangat ibadah puasanya"
+            }else{
+            isiInfo2.innerHTML="Hindari ledakan petasan <br> Semangat ibadah puasa di tahun 2025"
+            }
+            //aku putuskan hapus ini
+          //this.snake.isSnakeEatBody()
+          
+          if(this.isRun)
+          this.snake.ubahArah="atas"
+          this.isRun=false
+          if(strItem=="itemb"){
+          this.stopTime.draw2("⏳️")
+          this.isSnakeTouchTime(this.stopTime,0.5)
+          this.stopTime.move()}else{
+          this.stopTime.draw2("⏳️")
+          this.isSnakeTouchTime(this.stopTime,1)
+          this.stopTime.move()}
+          
+          if(strItem=="itema"){
+          this.speedInc.draw2("⚛️")
+          if(!this.stop)
+          this.speedInc.move("⚛️")
+          this.isSnakeEatFood(this.speedInc,0,14)
+          }else{
+          this.speedInc.draw2("⚛️")
+          if(!this.stop)
+          this.speedInc.move("⚛️")
+          this.isSnakeEatFood(this.speedInc,0,12)}
+          }
+          if(this.snake.speed==12||this.snake.speed==14){
+                 bar.itemc="⚛️"
+          }else{bar.itemc=""}
+          
+          //drwskin
+          
+          let isSkin = localStorage.getItem("skin")
+          if(isSkin=="skin3"){
+          this.snake.fps++
+          if(this.snake.fps>=6)
+             this.snake.fps=0
+           if(bar.isUlti=="aktif"){
+          this.snake.drawImg("dizzyb.jpg")}else{this.snake.drawImg("dizzy.jpg")}
+          }
+          if(isSkin=="skin2"){
+          this.snake.fps++
+          if(this.snake.fps>=6)
+             this.snake.fps=0
+             if(bar.isUlti=="aktif"){
+          this.snake.drawImg("ulti.jpg")}else{
+               this.snake.drawImg("skin1.jpg")
+          }
+          }
+          if(isSkin=="skin4"){
+          this.snake.fps++
+          if(this.snake.fps>=6)
+             this.snake.fps=0
+             if(bar.isUlti=="aktif"){
+                  this.snake.drawU4()
+             }else{
+          this.snake.drawImg("skin3.jpg")}
+          }
+          if(isSkin=="basic"){
+               if(bar.isUlti=="aktif"){
+                    this.snake.drawU()
+               }else{
+               this.snake.draw()}
+          }
+          if(!localStorage.getItem("skin")){
+               if(bar.isUlti=="aktif"){
+               this.snake.draw2()}else{
+                    this.snake.draw()
+               }
+               
+          }
+          if(!this.stop&&!this.modeDes&&!this.modeDes2){
+          if(this.flag.length!==0)
+          this.food.move()
+          this.food2.move()
+          this.food3.move()
+          if(this.flag.length!==0)
+          this.food4.move()}
+          if(!this.modeDes&&!this.modeDes2&&!this.snake.isOver){
+          if(this.flag.length!==0)
+          this.food.draw("red","-10")
+          if(this.flag.length!==0)
+          this.food2.draw("yellow","+10")
+          if(this.flag.length!==0)
+          this.food3.draw("white","+5")
+          if(this.flag.length!==0)
+          this.food4.draw("brown","-5")
+          if(this.flag.length!==0){
+          let golld=10
+          if(this.flag.length>=6)
+              golld=50
+          this.isSnakeTouchUang(this.uang,golld)
+          if(!this.stop)
+          this.uang.speed=6
+          if(this.stop)
+          this.uang.speed=0
+          this.uang.draw("orange","+$1")
+          this.uang.move()}
+          }
+          
+          
+          if(this.flag.length==2&&!this.snake.isOver){
+          this.harta.forEach(h=>{
+            let x=110
+            let y=260
+            if(this.hartaAnimate.y<=100)
+               this.hartaAnimate.follow=true
+               this.hartaAnimate.y-=30
+               this.hartaAnimate.drawAnimate("orange","+$1",x,y)
+            h.drawGold("📦",x,y)
+          })
+          if(this.harta.length!==0)
+          this.isSnakeTouchHarta(this.harta,0.5,this.hartaAnimate)
+          }
+          if(this.flag.length==4){
+          this.harta2.forEach(h=>{
+            let x=130
+            let y=130
+            if(this.hartaAnimate2.y<=0)
+               this.hartaAnimate2.follow=true
+               this.hartaAnimate2.y-=30
+               this.hartaAnimate2.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🎁",x,y)
+            
+          })
+          if(this.harta2.length!==0)
+          this.isSnakeTouchHarta(this.harta2,1,this.hartaAnimate2)
+          }
+          if(this.flag.length==6){
+          this.harta3.forEach(h=>{
+            let x=150
+            let y=40
+            if(this.hartaAnimate3.y<=0)
+               this.hartaAnimate3.follow=true
+               this.hartaAnimate3.y-=30
+               this.hartaAnimate3.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🎁",x,y)
+            
+          })
+          if(this.harta3.length!==0)
+          this.isSnakeTouchHarta(this.harta3,1,this.hartaAnimate3)
+          }
+          if(this.flag.length==7){
+          this.harta4.forEach(h=>{
+            let x=155
+            let y=50
+            if(this.hartaAnimate4.y<=0)
+               this.hartaAnimate4.follow=true
+               this.hartaAnimate4.y-=30
+               this.hartaAnimate4.drawAnimate("orange","+$1",x,y)
+            h.drawGold("🎁",x,y)
+            
+          })
+          if(this.harta4.length!==0)
+          this.isSnakeTouchHarta(this.harta4,1,this.hartaAnimate4)
+          }
+          if(this.flag.length==8){
+          this.harta5.forEach(h=>{
+            let x=40
+            let y=140
+            if(this.hartaAnimate5.y<=0)
+               this.hartaAnimate5.follow=true
+               this.hartaAnimate5.y-=30
+               this.hartaAnimate5.drawAnimate("orange","+$1",x,y)
+            h.drawGold("💰",x,y)
+            
+          })
+          if(this.harta5.length!==0)
+          this.isSnakeTouchHarta(this.harta5,5,this.hartaAnimate5)
+          }
+          if(this.flag.length==10||this.flag.length==24){
+          this.harta6.forEach(h=>{
+            let x=95
+            let y=180
+            if(this.hartaAnimate6.y<=0)
+               this.hartaAnimate6.follow=true
+               this.hartaAnimate6.y-=30
+               this.hartaAnimate6.drawAnimate("orange","+$1",x,y-4)
+            h.drawGold("💎",x,y)
+            
+          })
+          if(this.harta6.length!==0)
+          this.isSnakeTouchHarta(this.harta6,10,this.hartaAnimate6)
+          }
+          
+          if(this.modeDes)
+             this.modeDestroy()
+          if(this.modeDes2)
+          this.modeTime()
+          
+          time.innerHTML=`Snake speed : ${Math.floor(this.snake.speed)}`
+          }
+          if(this.flag.length==0&&isGameRun&&!this.snake.gameOver){
+               //boms
+               lawar.play()
+            this.food5.isSize="21px Arial"
+            if(!this.stop)
+            this.food5.speed=5
+            if(this.stop)
+            this.food5.speed=0
+            this.isBom(this.food5,7)
+            if(this.food5.isBurn){
+               this.food5.fpsBurn++
+               
+            }
+               if(this.food5.fpsBurn>=5)
+                  this.food5.fpsBurn=0
+               
+            this.food5.drawBurn("🎈")
+            this.food5.move()
+            
+            this.arrKal.forEach((k=>{
+                 k.drawKal()
+                 if(k.isDor)
+                 k.move()
+            }))
+            this.isKal(this.arrKal)
+            
+            this.arrKe.forEach(k=>{
+                 this.isKe(k)
+                 k.drawKe()
+                 if(!this.stop)
+                 k.speed=3
+                 if(this.stop)
+                 k.speed=0
+                 k.move()
+                 k.fpsKe++
+                 if(k.fpsKe>=4)
+                    k.fpsKe=0
+                    
+                 if(k.arah2=="unnor"){
+                     k.fpsUltiKe++
+                    if(k.fpsUltiKe>=4)
+                       k.fpsUltiKe=0
+                 }
+            })
+            
+            //batas lentgh 0
+          }
+          if(this.flag.length==7){
+               this.arrKal.forEach((k=>{
+               
+                 k.drawKal()
+                 if(k.isDor)
+                 k.move()
+            }))
+            this.isKal(this.arrKal)
+          }
+        },80)
+      }
+    }
+    const runGame=new Logika()
+    runGame.fpsEksekusi()
+    
+    kembali.onclick=()=>{
+      window.location.reload()
+    }
+    lv1.style="background-color:green"
+    lv1.onclick=()=>{
+      isGameRun=true
+      runGame.flag.push(".")
+      menuGame.style.display=""
+      menuLv.style.display="none"
+    }
+      if(param.find(f=>f=="lvv2"))
+        lv2.style="background-color:green"
+        let asd = creator
+        if(asd!==creator){
+             console.log("huhhh capek")
+        }
+    lv2.onclick=()=>{
+      if(param.find(f=>f=="lvv2")){
+      isGameRun=true
+      runGame.point=100
+      runGame.flag.push(".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"}else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(param.find(f=>f=="lvv3"))
+        lv3.style="background-color:green"
+    lv3.onclick=()=>{
+      if(param.find(f=>f=="lvv3")){
+        isGameRun=true
+      runGame.point=100
+      runGame.flag.push(".",".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(param.find(f=>f=="lvv4"))
+        lv4.style="background-color:green"
+    lv4.onclick=()=>{
+      if(param.find(f=>f=="lvv4")){
+        isGameRun=true
+      runGame.point=100
+      runGame.flag.push(".",".",".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(param.find(f=>f=="lvv5"))
+        lv5.style="background-color:green"
+    lv5.onclick=()=>{
+      if(param.find(f=>f=="lvv5")){
+        isGameRun=true
+      runGame.point=100
+      runGame.flag.push(".",".",".",".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(param.find(f=>f=="lvv6"))
+        lv6.style="background-color:green"
+    lv6.onclick=()=>{
+      if(param.find(f=>f=="lvv6")){
+        isGameRun=true
+      runGame.point=100
+      runGame.flag.push(".",".",".",".",".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(creator!=="Lucky wahyu"){
+         localStorage.setItem("sss2",500)
+    }
+    if(param.find(f=>f=="lvv7"))
+        lv7.style="background-color:green"
+    lv7.onclick=()=>{
+      if(param.find(f=>f=="lvv7")){
+        isGameRun=true
+      runGame.point=100
+      for(let i=0;i<=5;i++)
+      runGame.flag.push(".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(param.find(f=>f=="lvv8"))
+        lv8.style="background-color:green"
+    lv8.onclick=()=>{
+      if(param.find(f=>f=="lvv8")){
+        isGameRun=true
+      runGame.point=100
+      for(let i=0;i<=6;i++)
+      runGame.flag.push(".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    if(param.find(f=>f=="lvv9"))
+        lv9.style="background-color:green"
+    lv9.onclick=()=>{
+      if(param.find(f=>f=="lvv9")){
+        isGameRun=true
+      runGame.point=100
+      for(let i=0;i<=7;i++)
+      runGame.flag.push(".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    
+    if(param.find(f=>f=="lvv9"))
+        lv10.style="background-color:green"
+    lv10.onclick=()=>{
+      if(param.find(f=>f=="lvv9")){
+        isGameRun=true
+      runGame.point=100
+      for(let i=0;i<=8;i++)
+      runGame.flag.push(".")
+      runGame.isLvUp()
+      menuGame.style.display=""
+      menuLv.style.display="none"
+      }else{
+        alert("Mainkan game sebelumnya untuk membuka LEVEL ini")
+      }
+    }
+    
+    
+    let colorr=["yellow","lime","red","blue"]
+    let colorr2=["purple","black","red","blue"]
+    let rank=document.getElementById("rank")
+    let enjoy=document.getElementById("enjoy")
+    let shop=document.getElementById("shop")
+    let about=document.getElementById("about")
+    let menyu=[rank,enjoy,shop,about]
+    setInterval(()=>{
+      if(Math.random()<0.45){
+        menyu[Math.floor(Math.random()*menyu.length)].style=`background-color:
+        ${colorr2[Math.floor(Math.random()*colorr2.length-1)]}`
+      }
+      if(Math.random()<0.5){
+         pesawat.style=`text-shadow:-4px -4px 4px ${colorr[Math.floor(Math.random()*colorr.length)]}`
+         halo.style=`color: ${colorr2[Math.floor(Math.random()*colorr2.length)]}`
+      }
+      
+    },200)
+    setInterval(()=>{
+      
+      setTimeout(()=>{
+        pesawat.style="top:290px;left:-20px;transform:rotate(-45deg)"
+      },0)
+      setTimeout(()=>{
+        pesawat.style="top:270px;left:-20px;transform:rotate(-45deg)"
+      },200)
+      setTimeout(()=>{
+        pesawat.style="top:250px;left:-20px;transform:rotate(-45deg)"
+      },400)
+      setTimeout(()=>{
+        pesawat.style="top:230px;left:-20px;transform:rotate(-35deg)"
+      },600)
+      setTimeout(()=>{
+        pesawat.style="top:210px;left:-10px;transform:rotate(-30deg)"
+      },800)
+      setTimeout(()=>{
+        pesawat.style="top:190px;left:-5px;transform:rotate(-25deg)"
+      },1000)
+      setTimeout(()=>{
+        pesawat.style="top:180px;left:0px;transform:rotate(-20deg)"
+      },1200)
+      setTimeout(()=>{
+        pesawat.style="top:170px;left:10px;transform:rotate(-10deg)"
+      },1400)
+      setTimeout(()=>{
+        pesawat.style="top:160px;left:20px;transform:rotate(-5deg)"
+      },1600)
+      setTimeout(()=>{
+        pesawat.style="top:150px;left:30px;transform:rotate(0deg)"
+      },1800)
+      setTimeout(()=>{
+        pesawat.style="top:140px;left:40px;transform:rotate(5deg)"
+      },2000)
+      setTimeout(()=>{
+        pesawat.style="top:138px;left:50px;transform:rotate(10deg)"
+      },2200)
+      setTimeout(()=>{
+        pesawat.style="top:136px;left:60px;transform:rotate(15deg)"
+      },2200)
+      setTimeout(()=>{
+        pesawat.style="top:134px;left:70px;transform:rotate(20deg)"
+      },2400)
+      setTimeout(()=>{
+        pesawat.style="top:130px;left:80px;transform:rotate(25deg)"
+      },2600)
+      setTimeout(()=>{
+        pesawat.style="top:126px;left:90px;transform:rotate(30deg)"
+      },2800)
+      setTimeout(()=>{
+        pesawat.style="top:120px;left:100px;transform:rotate(35deg)"
+      },3000)
+      setTimeout(()=>{
+        pesawat.style="top:115px;left:110px;transform:rotate(40deg)"
+      },3200)
+      setTimeout(()=>{
+        pesawat.style="top:115px;left:120px;transform:rotate(45deg)"
+      },3400)
+      setTimeout(()=>{
+        pesawat.style="top:115px;left:130px;transform:rotate(50deg)"
+      },3600)
+      setTimeout(()=>{
+        pesawat.style="top:115px;left:140px;transform:rotate(55deg)"
+      },3800)
+      setTimeout(()=>{
+        pesawat.style="top:115px;left:150px;transform:rotate(60deg)"
+      },4000)
+    },4000)
+    
+    let zuochi=new Audio("running.m4a")
+    rank.onclick=()=>{
+      goldLuar.style.display="none"
+      zuochi.play()
+      zuochi.loop=true
+      dw6.pause()
+      menuUtama.style="color:red"
+      menuUtama.style.display="none"
+      abslt.style.display="none"
+      menuLv.style.display=""
+    }
+    lock.onclick=()=>{
+      goldLuar.style.display=""
+      menuUtama.style.display=""
+      abslt.style.display=""
+      menuLv.style.display="none"
+      zuochi.pause()
+      dw6.play()
+    }
+    backMenuEnjoy.onclick=()=>{
+      goldLuar.style.display=""
+      menuUtama.style.display=""
+      abslt.style.display=""
+      menuLv.style.display="none"
+      menuEnjoy.style.display="none"
+      zuochi.pause()
+      dw6.play()
+    }
+    
+    menuEnjoy.style.display="none"
+    enjoy.onclick=()=>{
+      goldLuar.style.display="none"
+      menuEnjoy.style.display=""
+      menuUtama.style.display="none"
+      abslt.style.display="none"
+      menuLv.style.display="none"
+    }
+    modeEnjoy.onclick=()=>{
+      menuGame.style.display=""
+      menuEnjoy.style.display="none"
+      nama=prompt("Masukan nama kalian")
+      isGameRun=true
+      if(nama=="bukasemualeveldongakucapek"){
+        param.push("lvv2","lvv3","lvv4","lvv5","lvv6","lvv7","lvv8","lvv9")
+        localStorage.setItem("sss",JSON.stringify(param))}
+    }
+    let dw6=new Audio("clasik8bit.m4a")
+    dw6.volume=0.3
+    let dw6Flag=1
+    lagu.onclick=()=>{
+      dw6Flag++
+      if(dw6Flag%2==0){
+      dw6.play()
+      dw6.loop="true"
+      lagu.innerHTML="🔊"}
+      if(dw6Flag%2==1){
+      dw6.pause()
+      lagu.innerHTML="🔇"}
+    }
+    
+    about.onclick=()=>{
+      goldLuar.style.display="none"
+      menuUtama.style.display="none"
+      abslt.style.display="none"
+      back.style.display=""
+      keterangan.style.display=""
+      keterangan.innerHTML=`Info Game<br><br>🌵🦅👻<br>jangan sentuh mereka, mereka akan membuat hp ularmu berkurang drastis begitu juga dengan wall<br><br>☠️ <br>item ini akan membuat ularmu bergerak berlawanan dan mengurangi hp. sampai kamu berhasil memakan food<br><br>⏳️<br> Item  ini akan memberhentikan semua item kecuali dirinya dan snake.<br><br>⚛️<br>Item ini akan menambah kecepatan ular sampai ular memakan item baru<br><br>📦 🎁 💰 💎<br>Item tersebut berisi uang/gold.<br><br>🎈 Efek ledakan akan langsung muncul, jika kamu menyentuh item ini.<br><br>🔋 Gold akan keluar secara perlahan-lahan dan akan menimbulkan efek ledakan setelah gold selesai diambil<br><br>Jauhi kekelawar saat berwarna biru mengkilau<br><br>Sebagian item dan skin belum terbuka dapatkan mereka sesuai keterangan. Gunakan tombol GANTI untuk menganti Item, hanya boleh membawa 3 item saat bermain<br><br>Pada mode mencari mahkota sistem pengurangan hp dihilangkan<br><br>sprite sheet kekelawar didapat dari web openGameArt dibuat oleh Author: bagzie Friday, July 18, 2014 - 13:22 Art Type: 2D Art<br><br>Game ini dibuat oleh ${creator} pada tanggal 10 januari 2025 dan rilis di web tanggal 26 Februari 2025. Game ini dibuat menggunakan bahasa pemograman javascript, html dan css dan Game ini dirancang untuk menemani aktivitas dibulan ramdhan<br><br><br>Game ini sangat sederhana dan kemungkinan melalaikan waktu dan memancing emosi cuma sedikit. Selamat menunaikan ibadah puasa tahun 2025<br><br>Ingat sholat 5 waktu lebih utama dibandingkan bermain game. karena mau sehebat apapun kita, kematian akan segera datang`
+    }
+    back.onclick=()=>{
+      goldLuar.style.display=""
+      menuUtama.style.display=""
+      abslt.style.display=""
+      back.style.display="none"
+      keterangan.style.display="none"
+    }
+    papanNama.onclick=()=>{
+      menuEnjoy.style.display="none"
+      peringkat.style.display=""
+    }
+    
+    destroy.onclick=()=>{
+      backStage.style.display=""
+      stage.style.display=""
+      menuEnjoy.style.display="none"
+      //runGame.point=100
+      
+    }
+    stage.style.display="none"
+    stage1.onclick=()=>{
+      nama2=prompt("Masukan nama kamu")
+      //cur
+      if(nama2.toLowerCase()=="wizardgatene"){
+           console.log("curr")
+           param.push("lvv2","lvv3","lvv4","lvv5","lvv6","lvv7","lvv8","lvv9","lvv10","itemd","iteme","itemf","itemg","itemh","itemi","skin2","skin3","stage2")
+           localStorage.setItem("sss3","100000")
+           localStorage.setItem("sss",JSON.stringify(param))
+      }
+      stage.style.display="none"
+      runGame.modeDes=true
+      isGameRun=true
+      menuEnjoy.style.display="none"
+      //runGame.point=100
+      menuGame.style.display=""
+      for(let i=0;i<=20;i++)
+      runGame.flag.push(".")
+    }
+      stage2.style="background-color:gray"
+    if(param.find(p=>p=="stage2"))
+       stage2.style="background-color:black"
+    stage2.onclick=()=>{
+      if(param.find(p=>p=="stage2")){
+      nama3=prompt("Masukan nama kamu")
+      stage.style.display="none"
+      runGame.modeDes2=true
+      isGameRun=true
+      menuEnjoy.style.display="none"
+      //runGame.point=100
+      menuGame.style.display=""
+      for(let i=0;i<=50;i++)
+      runGame.flag.push(".")}else{
+        alert("MENANGKAN GAME PADA RANK 9")
+      }
+    }
+    mario.onclick=()=>{
+      isiInfo2.innerHTML="Selamat mencari sesuatu dan silahkan jawab quiz untuk mendapat coin kecil"
+      jumping.style.display=""
+      nightAudio.play()
+      dw6.pause()
+      nightAudio.loop=true
+      runGame.flag2="1"
+      menuEnjoy.style.display="none"
+      menuGame.style.display=""
+      isGameRun2=true
+    }
+    backMario.onclick=()=>{
+      runGame.flag2="1"
+      runGame.snake.gameOver=false;
+      runGame.snake.x=20
+      runGame.snake.y=260
+      runGame.ucapan.style.display="none"
+      backMario.style.display="none"
+    }
+    backStage.onclick=()=>{
+      backStage.style.display="none"
+      menuEnjoy.style.display=""
+      stage.style.display="none"
+    }
+    peringkat.style.display="none"
+    let dataLs=JSON.parse(localStorage.getItem("sss2"))
+       dataLs.sort((a,b)=>b.score - a.score)
+    let infoJuara=dataLs.map((n,i)=>`${i+1}.
+    ${n.nama} || score : ${n.score.toString()}<br>`)
+    
+    let dataLs2=JSON.parse(localStorage.getItem("sss2b"))
+       dataLs2.sort((a,b)=>b.win - a.win)
+    let infoJuara2=dataLs2.map((n,i)=>`${i+1}.
+    ${n.nama2} || win streak : ${n.win.toString()}x<br>`)
+                 //creator
+    let dataLs3=JSON.parse(localStorage.getItem("sss2c"))
+       dataLs3.sort((a,b)=>b.win - a.win)
+    let infoJuara3=dataLs3.map((n,i)=>`${i+1}.
+    ${n.nama3} || win streak : ${n.win.toString()}x<br>`)
+    
+    peringkat.innerHTML=`SKOR TERTINGGI  DI MODE PETASAN<br><br>${infoJuara.join('')}<br><br>WIN STREAK TERBANYAK DI MODE
+    MAHKOTA STAGE 1<br><br>${infoJuara2.join('')}<br><br>WIN STREAK TERBANYAK DI MODE
+    MAHKOTA STAGE 2<br><br>${infoJuara3.join('')}<br><br>
+    <div id="wrapPeringkat">
+    <div id="hapusPeringkat" class="btnn">hapus data</div>
+    <div id="backPeringkat" class="btnn">kembali</div>
+    </div>`
+    
+    backPeringkat.onclick=()=>{
+      menuEnjoy.style.display=""
+      peringkat.style.display="none"
+    }
+    hapusPeringkat.onclick=()=>{
+      let isConfirm=prompt("Tulis yakin")
+      
+      if(isConfirm.toLowerCase()=="yakin"){
+      localStorage.removeItem("sss2c")
+      localStorage.removeItem("sss2b")
+      localStorage.removeItem("sss2")
+        window.location.reload()
+      }
+    }
+
+    gold.innerHTML=`$ : ${Math.floor(param3.toString())}`
+
+    backShop.onclick=()=>{
+      menuShop.style.display="none"
+      menuUtama.style.display=""
+      abslt.style.display=""
+    }
+    menuShop.style.display="none"
+    shop.onclick=()=>{
+      menuShop.style.display=""
+      menuUtama.style.display="none"
+      abslt.style.display="none"
+    }
+    flowerSun.style.display="none"
+    flowerSun2.style.display="none"
+    flowerSun3.style.display="none"
+    balonUdara.style.display="none"
+    
+    flowerSunBuy.onclick=()=>{
+      if(param3>=500){
+         param.push("flowerSun")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-500
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+      
+    }
+    if(param.find(s=>s=="flowerSun")){
+      flowerSun.style.display=""
+      flowerSunBuy.onclick=null
+      flowerSunBuy.style="background-color:green"
+      flowerSunBuy.innerHTML="🌻<br>terjual"
+    }
+    flowerSunBuy2.onclick=()=>{
+      if(param3>=500){
+         param.push("flowerSun2")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-500
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+      
+    }
+    if(param.find(s=>s=="flowerSun2")){
+      flowerSun2.style.display=""
+      flowerSunBuy2.onclick=null
+      flowerSunBuy2.style="background-color:green"
+      flowerSunBuy2.innerHTML="🌻<br>terjual"
+    }
+    flowerSunBuy3.onclick=()=>{
+      if(param3>=500){
+         param.push("flowerSun3")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-500
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+      
+    }
+    if(param.find(s=>s=="flowerSun3")){
+      flowerSun3.style.display=""
+      flowerSunBuy3.onclick=null
+      flowerSunBuy3.style="background-color:green"
+      flowerSunBuy3.innerHTML="🌻<br>terjual"
+    }
+    
+    flowerSunBuy4.onclick=()=>{
+      if(param3>=300&&param.find(s=>s=="flowerSun")&&param.find(s=>s=="flowerSun2")&&param.find(s=>s=="flowerSun3")){
+         param.push("flowerSunAnimation")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-300
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup atau kamu belum membeli semua bunga")
+      }
+      
+    }
+    if(param.find(s=>s=="flowerSunAnimation")&&param.find(s=>s=="flowerSun")&&param.find(s=>s=="flowerSun2")&&param.find(s=>s=="flowerSun3")){
+      flowerSunBuy4.onclick=null
+      flowerSunBuy4.style="background-color:green"
+      flowerSunBuy4.innerHTML="🌻 animation<br>terjual"
+    }
+    balonUdaraBuy.onclick=()=>{
+      if(param3>=2000){
+         param.push("balonUdara")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-2000
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+      
+    }
+    if(param.find(s=>s=="balonUdara")){
+      balonUdara.style.display=""
+      balonUdaraBuy.onclick=null
+      balonUdaraBuy.style="background-color:green"
+      balonUdaraBuy.innerHTML="🪂<br>terjual"
+    }
+    balonUdaraBuy2.onclick=()=>{
+      if(param3>=1000&&param.find(s=>s=="balonUdara")){
+         param.push("balonUdaraMenyala")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-1000
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup atau kamu belum membeli balon udara")
+      }
+      
+    }
+    if(param.find(s=>s=="balonUdaraMenyala")){
+      balonUdara.style.display=""
+      balonUdaraBuy2.onclick=null
+      balonUdaraBuy2.style="background-color:green"
+      balonUdaraBuy2.innerHTML="🪂 animation<br>terjual"
+    }
+    let ranAngka=[]
+    for(let i=70;i<100;i++)
+        ranAngka.push(i)
+    let ranAngkaDeg=[15,,12,11,-15,-12,-11]
+    setInterval(()=>{
+      if(Math.random()<0.5&&param.find(b=>b=="balonUdaraMenyala")&&param.find(s=>s=="balonUdara")){
+         balonUdara.style=`text-shadow:-4px -4px 4px
+         ${colorr[Math.floor(Math.random()*colorr.length)]};top:
+         ${ranAngka[Math.floor(Math.random()*ranAngka.length)]}px`
+      }
+      if(Math.random()<0.5&&param.find(f=>f=="flowerSunAnimation")){
+         flowerSun.style=`transform:rotate(
+         ${ranAngkaDeg[Math.floor(Math.random()*ranAngkaDeg.length)]}deg)`
+         flowerSun2.style=`transform:rotate(
+         ${ranAngkaDeg[Math.floor(Math.random()*ranAngkaDeg.length)]}deg)`
+         flowerSun3.style=`transform:rotate(
+         ${ranAngkaDeg[Math.floor(Math.random()*ranAngkaDeg.length)]}deg)`
+      }
+    },200)
+    
+   //localStorage.clear()
+    goldLuar.innerHTML=` $ : ${Math.floor(param3)}`
+    
+        //dibuat pada 10 januari 2025
+   //param3=7000
+   //localStorage.setItem("sss3",JSON.stringify(param3))
+   
+   jumping.onclick=()=>{
+     runGame.snake.jump=true
+     runGame.snake.startJump=runGame.snake.y
+     runGame.tanah=false
+       jumping.disabled=true
+       setTimeout(()=>{
+         jumping.disabled=false
+       },2000)
+   }
+   
+   //menu awal skin
+   menuSkin.style.display="none"
+   document.getElementById("skina").innerHTML=`<img src='skina.jpg' width="100%" >`
+   if(param.find(s=>s=="skin2")){
+      document.getElementById("skinb").innerHTML=`<img
+        src='skinb.jpg' width="100%" >`
+   }else{
+      document.getElementById("skinb").innerHTML=`<img src='gembok.jpeg'
+      width="95%" >`
+   }
+   if(param.find(s=>s=="skin3")){
+      document.getElementById("skinc").innerHTML=`<img
+        src='skinc.jpg' width="100%" >`
+   }else{
+      document.getElementById("skinc").innerHTML=`<img src='gembok.jpeg'
+      width="95%" >`
+   }
+   if(param.find(s=>s=="lvv3")){
+      document.getElementById("skind").innerHTML=`<img
+        src='skind.jpg' width="100%" >`
+   }else{
+      document.getElementById("skind").innerHTML=`<img src='gembok.jpeg'
+      width="95%" >`
+   }
+   
+   
+   
+   skinM.onclick=()=>{
+      menuSkin.style.display=""
+      menuUtama.style.display="none"
+      abslt.style.display="none"
+   }
+   backSkin.onclick=()=>{
+       menuSkin.style.display="none"
+      menuUtama.style.display=""
+      abslt.style.display=""
+   }
+   
+   //shop skin
+   skin1.onclick=()=>{
+      if(param3>=800){
+         param.push("skin2")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-800
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+    }
+    if(param.find(s=>s=="skin2")){
+      
+      skin1.onclick=null
+      skin1.style="background-color:green"
+      skin1.innerHTML="skin jeruk<br>terjual"
+    }
+   skin2.onclick=()=>{
+      if(param3>=1500){
+         param.push("skin3")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-1500
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+    }
+    if(param.find(s=>s=="skin3")){
+      
+      skin2.onclick=null
+      skin2.style="background-color:green"
+      skin2.innerHTML="skin sapi<br>terjual"
+    }
+    
+   sItemh.onclick=()=>{
+      if(param3>=5000){
+         param.push("itemh")
+         localStorage.setItem("sss",JSON.stringify(param))
+         let total=param3-5000
+         localStorage.setItem("sss3",JSON.stringify(total))
+         window.location.reload()
+      }else{
+        alert("Uang mu tidak cukup")
+      }
+    }
+    if(param.find(s=>s=="itemh")){
+      
+      sItemh.onclick=null
+      sItemh.style="background-color:green"
+      sItemh.innerHTML="item hp<br>terjual"
+    }
+    
+    
+    
+    //menu ganti skin
+   skina.onclick=()=>{
+        tombol.play()
+         localStorage.setItem("skin","basic")
+         skina.innerHTML="✅️"
+         skina.style="font-size:81px"
+         if(param.find(s=>s=="skin2"))
+         document.getElementById("skinb").innerHTML=`<img src='skinb.jpg' width="100%" >`
+         if(param.find(s=>s=="skin3"))
+         document.getElementById("skinc").innerHTML=`<img src='skinc.jpg' width="100%">`
+         if(param.find(s=>s=="lvv3"))
+         document.getElementById("skind").innerHTML=`<img src='skind.jpg'
+         width="100%">`
+   }
+   skinb.onclick=()=>{
+        tombol.play()
+        if(param.find(s=>s=="skin2")){
+         localStorage.setItem("skin","skin2")
+         skinb.innerHTML="✅️"
+         skinb.style="font-size:81px"
+         document.getElementById("skina").innerHTML=`<img src='skina.jpg' width="100%" >`
+         if(param.find(s=>s=="skin3"))
+         document.getElementById("skinc").innerHTML=`<img src='skinc.jpg'
+         width="100%">`
+         if(param.find(s=>s=="lvv3"))
+         document.getElementById("skind").innerHTML=`<img src='skind.jpg'
+         width="100%">`
+        }else{alert("Beli skin jeruk di Shop $800")}
+   }
+   skinc.onclick=()=>{
+        tombol.play()
+       if(param.find(s=>s=="skin3")){
+         localStorage.setItem("skin","skin3")
+         skinc.innerHTML="✅️"
+         skinc.style="font-size:81px"
+         document.getElementById("skina").innerHTML=`<img src='skina.jpg' width="100%" >`
+         if(param.find(s=>s=="skin2"))
+         document.getElementById("skinb").innerHTML=`<img src='skinb.jpg'
+         width="100%">`
+         if(param.find(s=>s=="lvv3"))
+         document.getElementById("skind").innerHTML=`<img src='skind.jpg'
+         width="100%">`
+       }else{
+            alert("Beli skin sapi di shop $1500")
+       }
+   }
+   skind.onclick=()=>{
+        tombol.play()
+        if(param.find(s=>s=="lvv3")){
+         localStorage.setItem("skin","skin4")
+         skind.innerHTML="✅️"
+         skind.style="font-size:81px"
+         document.getElementById("skina").innerHTML=`<img src='skina.jpg' width="100%" >`
+         if(param.find(s=>s=="skin2"))
+         document.getElementById("skinb").innerHTML=`<img src='skinb.jpg'
+         width="100%">`
+         if(param.find(s=>s=="skin3"))
+         document.getElementById("skinc").innerHTML=`<img src='skinc.jpg'
+         width="100%">`
+        }else{
+             alert("buka level 3 di menu rank")
+        }
+   }
+
+  //menu item
+  document.getElementById("itema").innerHTML=`<img src='itema.jpg' width="100%" >`
+  document.getElementById("itemb").innerHTML=`<img src='itemb.jpg' width="100%" >`
+  document.getElementById("itemc").innerHTML=`<img src='itemc.jpg' width="100%" >`
+  if(param.find(s=>s=="itemd")){
+     document.getElementById("itemd").innerHTML=`<img src='itemd.jpg' width="100%" >`
+  }else{document.getElementById("itemd").innerHTML=`<img src='gembok.jpeg' width="90%" style="margin-top:4px" >`}
+  if(param.find(s=>s=="iteme")){
+     document.getElementById("iteme").innerHTML=`<img src='iteme.jpg' width="100%" >`
+  }else{document.getElementById("iteme").innerHTML=`<img src='gembok.jpeg' width="90%" style="margin-top:4px" >`}
+  if(param.find(s=>s=="itemf")){
+     document.getElementById("itemf").innerHTML=`<img src='itemf.jpg' width="100%" >`
+  }else{document.getElementById("itemf").innerHTML=`<img src='gembok.jpeg' width="90%" style="margin-top:4px" >`}
+  if(param.find(s=>s=="itemg")){
+     document.getElementById("itemg").innerHTML=`<img src='itemg.jpg' width="100%" >`
+  }else{document.getElementById("itemg").innerHTML=`<img src='gembok.jpeg' width="90%" style="margin-top:4px" >`}
+  if(param.find(s=>s=="itemh")){
+     document.getElementById("itemh").innerHTML=`<img src='itemh.jpg' width="100%" >`
+  }else{document.getElementById("itemh").innerHTML=`<img src='gembok.jpeg' width="90%" style="margin-top:4px" >`}
+  if(param.find(s=>s=="itemi")){
+     document.getElementById("itemi").innerHTML=`<img src='itemi.jpg' width="100%" >`
+  }else{document.getElementById("itemi").innerHTML=`<img src='gembok.jpeg' width="90%" style="margin-top:4px" >`}
+  
+  
+  
+  
+  
+  let pusNum=0
+  ganIt.onclick=()=>{
+             localStorage.setItem("itemUlarLwkjr",arrIt[pusNum])
+             pusNum++
+             if(pusNum>2)
+                pusNum=0
+        }
+  setInterval(()=>{
+  imgItem1.innerHTML=`<img src='${arrIt[0]}.jpg' width="20%" >
+        <img src='${arrIt[1]}.jpg' width="20%" >
+        <img src='${arrIt[2]}.jpg' width="20%" >
+        `
+        localStorage.setItem("arrIt",JSON.stringify(arrIt))
+        if(arrIt.length>=5)
+            arrIt.pop()
+  },60)
+  itema.onclick=()=>{
+       tombol.play()
+       localStorage.setItem("itemUlarLwkjr","itema")
+       listItem.innerHTML="mengubah item ⚛️ menjadi +14 speed"
+        imgItem.innerHTML=`<img src='itema.jpg' width="20%" >`
+        
+         arrIt.unshift("itema")
+  }
+  itemb.onclick=()=>{
+       tombol.play()
+       localStorage.setItem("itemUlarLwkjr","itemb")
+       listItem.innerHTML="durasi item ⏳️ menjadi lebih lama"
+        imgItem.innerHTML=`<img src='itemb.jpg' width="20%" >`
+         arrIt.unshift("itemb")
+  }
+  itemc.onclick=()=>{
+       tombol.play()             //creator
+       localStorage.setItem("itemUlarLwkjr","itemc")
+       listItem.innerHTML="kerusakan hp snake akibat ☠️ menjadi -0.5"
+        imgItem.innerHTML=`<img src='itemc.jpg' width="20%" >`
+         arrIt.unshift("itemc")
+  }
+  itemd.onclick=()=>{
+       tombol.play()
+       if(param.find(s=>s=="itemd")){
+          localStorage.setItem("itemUlarLwkjr","itemd")
+          listItem.innerHTML="meningkatkan pemulihan hp saat ultimate"
+          imgItem.innerHTML=`<img src='itemd.jpg' width="20%" >`
+          arrIt.unshift("itemd")}else{alert("Dapatkan secara random saat menyelesaikan pertandingan di mode petasan atau rank dengan length lebih dari 20")}
+         
+  }
+  iteme.onclick=()=>{
+       tombol.play()
+       if(param.find(s=>s=="iteme")){
+       localStorage.setItem("itemUlarLwkjr","iteme")
+       listItem.innerHTML="ultimate berlangsung lebih lama dari biasanya"
+        imgItem.innerHTML=`<img src='iteme.jpg' width="20%" >`
+         arrIt.unshift("iteme")}else{alert("Dapatkan secara random saat menyelesaikan pertandingan di mode petasan atau rank dengan length lebih dari 20")}
+  }
+  itemf.onclick=()=>{
+       tombol.play()
+       if(param.find(s=>s=="itemf")){
+       localStorage.setItem("itemUlarLwkjr","itemf")
+       listItem.innerHTML="hp berkurang lebih sedikit saat terkena tembok"
+        imgItem.innerHTML=`<img src='itemf.jpg' width="20%" >`
+         arrIt.unshift("itemf")}else{alert("Dapatkan secara random saat menyelesaikan pertandingan di mode petasan atau rank dengan length lebih dari 20")}
+  }
+  itemg.onclick=()=>{
+       tombol.play()
+       if(param.find(s=>s=="itemg")){
+       localStorage.setItem("itemUlarLwkjr","itemg")
+       listItem.innerHTML="mana terisi perlahan-lahan ketika game dimulai"
+        imgItem.innerHTML=`<img src='itemg.jpg' width="20%" >`
+         arrIt.unshift("itemg")}else{alert("Dapatkan secara random saat menyelesaikan pertandingan di mode petasan atau rank dengan length lebih dari 20")}
+  }
+  itemh.onclick=()=>{
+       tombol.play()
+       if(param.find(s=>s=="itemh")){
+       localStorage.setItem("itemUlarLwkjr","itemh")
+       listItem.innerHTML="hp terisi perlahan-lahan ketika game dimulai"
+        imgItem.innerHTML=`<img src='itemh.jpg' width="20%" >`
+         arrIt.unshift("itemh")}else{alert("Beli di SHOP seharga $5000")}
+  }
+  itemi.onclick=()=>{
+       tombol.play()
+       if(param.find(s=>s=="itemi")){
+       localStorage.setItem("itemUlarLwkjr","itemi")
+       listItem.innerHTML="menambahkan armor hp snake "
+        imgItem.innerHTML=`<img src='itemi.jpg' width="20%" >`
+        arrIt.unshift("itemi")}else{alert("raih win streak 6 atau lebih di mode mencari mahkota, Stage 1")}
+  }
+     //localStorage.clear()
+   //localStorage.setItem("sss3","5000")
+  //param.push("lvv2")
+  //localStorage.setItem("sss",JSON.stringify(param))
+                //creator
+  </script>
+</body>
+</html>
